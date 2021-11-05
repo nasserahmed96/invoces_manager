@@ -32,6 +32,7 @@ class MainForm(QMainWindow):
         widget_dict = dict()
         widget_dict["widget"] = widget
         widget_dict["regex"] = regex
+        print("Widget: ", widget_dict)
         widgets.append(widget_dict)
 
     def validate_form(self, widgets: list):
@@ -43,7 +44,8 @@ class MainForm(QMainWindow):
             after calling the function
             """
             regex = dict()
-            regex["text"] = re.compile("^[a-zA-Z\u0621-\u064A\u0660-\u0669\s\,\:\;0-9]*$")
+            error_widgets = []
+            regex["text"] = re.compile("^[a-zA-Z\u0621-\u064A\u0660-\u0669\s\,\:\;0-9]+$")
             regex["name"] = re.compile("^[a-zA-Z\u0621-\u064A]+[a-zA-Z\u0621-\u064A]$")
             regex["phone_number"] = re.compile("^(\+[0-9]{1,3}){0,1}[0-9]{1,13}")
             regex["email"] = re.compile("[a-zA-Z\.1-9\-\\\/\_]*@[A-Za-z]+(\.[a-zA-Z]+)*[a-zA-Z]$")
@@ -51,7 +53,11 @@ class MainForm(QMainWindow):
                 if not regex[widget["regex"]].match(widget["widget"].text()):
                     widget["error"] = "Not a valid: " + widget["widget"].placeholderText()
                     widget["widget"].setStyleSheet("""background-color: red;""")
-                    self.validation_error = True
+                    error_widgets.append(widget)
+                else:
+                    widget["widget"].setStyleSheet("")
+            return error_widgets
         except KeyError as e:
             print("Unsupported regex: ", e)
+
 
