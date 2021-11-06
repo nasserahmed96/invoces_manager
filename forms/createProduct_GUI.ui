@@ -92,7 +92,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="descriptionLineEdit">
+         <widget class="ValidatedLineEditor" name="descriptionLineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -137,7 +137,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="barcodeLineEdit">
+         <widget class="ValidatedLineEditor" name="barcodeLineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -200,6 +200,9 @@
             <pointsize>15</pointsize>
            </font>
           </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
          </widget>
         </item>
         <item row="4" column="0">
@@ -239,6 +242,9 @@
             <pointsize>15</pointsize>
            </font>
           </property>
+          <property name="minimum">
+           <double>1.000000000000000</double>
+          </property>
          </widget>
         </item>
         <item row="5" column="0">
@@ -277,6 +283,9 @@
            <font>
             <pointsize>15</pointsize>
            </font>
+          </property>
+          <property name="currentIndex">
+           <number>-1</number>
           </property>
          </widget>
         </item>
@@ -455,6 +464,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ValidatedLineEditor</class>
+   <extends>QLineEdit</extends>
+   <header>validatedlineeditor.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

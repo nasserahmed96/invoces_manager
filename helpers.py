@@ -46,7 +46,6 @@ def get_table_data(table_name:str):
     query = QSqlQuery()
     query.exec_("""SELECT id, name FROM {}""".format(table_name))
     data = OrderedDict()
-    data["All"] = "-1"
     while(query.next()):
         data[str(query.value(1))] = str(query.value(0))
     return data
