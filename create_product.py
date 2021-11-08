@@ -3,14 +3,15 @@ from PyQt5.QtWidgets import (QApplication, QMessageBox, QMainWindow)
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-
 from python_forms.createProduct_GUI import Ui_createProductWindow
 from helpers import get_table_data
 
-from main_form import MainForm
-
 
 class CreateProduct(QMainWindow):
+    """
+    To do
+    If there is any other forms, please generalize this and put it in MainForm
+    """
     def __init__(self):
         super(CreateProduct, self).__init__()
         self.ui = Ui_createProductWindow()
@@ -108,23 +109,18 @@ class CreateProduct(QMainWindow):
         query.prepare(self.build_insert_query("products", values.keys()))
         query.exec_()
         errors = query.lastError().text()
-        if errors:
-            print("Error: ", errors)
-        else:
-            QMessageBox.information(self, "Success", "Saved new product")
+        print("Error: ", errors) if errors else QMessageBox.information(self, "Success", "Saved new product")
 
     def bind_values(self, query, values):
             [query.bindValue(f':{value}', values[value]) for value in values.keys()]
 
     def closeEvent(self, event):
-        quit_msg = "Are you sure you want to exit the program?"
         reply = QMessageBox.question(self, 'Message',
-                                           quit_msg, QMessageBox.Yes, QMessageBox.No)
+                                           "Are you sure you want to exit the program?", QMessageBox.Yes, QMessageBox.No)
 
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+        event.accept() if reply == QMessageBox.Yes else event.ignore()
+
+
 
 
 if __name__ == "__main__":
