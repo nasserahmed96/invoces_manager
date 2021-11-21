@@ -2,6 +2,7 @@ import json
 from collections import OrderedDict
 from cryptography.fernet import Fernet
 from PyQt5.QtSql import QSqlQuery
+from PyQt5.QtCore import Qt
 
 def get_key():
     with open(".env.json") as env_file:
@@ -49,3 +50,13 @@ def get_table_data(table_name:str):
     while(query.next()):
         data[str(query.value(1))] = str(query.value(0))
     return data
+
+
+def initialize_combo_box(combo_box, items, default_value):
+    combo_box.addItems(items)
+    set_combo_box_default(combo_box, default_value)
+
+def set_combo_box_default(combo_box, default):
+    if combo_box.findText(default, Qt.MatchFixedString) < 0:
+        combo_box.addItem('All')
+    combo_box.setCurrentText('All')

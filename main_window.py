@@ -18,3 +18,9 @@ class AppMainWindow(QMainWindow):
         self.ui.employees_btn.clicked.connect(lambda: open_window(self, EmployeesManager))
         self.ui.system_properties_btn.clicked.connect(lambda: open_window(self, SystemProperties))
         self.ui.products_btn.clicked.connect(lambda: open_window(self, ProductsMainWindow))
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = AppMainWindow()
+    window.show()
+    sys.exit(app.exec_())
