@@ -6,6 +6,7 @@ from python_forms.productsManager_GUI import Ui_productsManagerWindow
 from create_product import CreateProduct
 from helpers import get_table_data, open_window, initialize_combo_box
 
+
 class ProductsManager(QMainWindow):
     def __init__(self):
         super(ProductsManager, self).__init__()
@@ -203,8 +204,6 @@ class ProductsManager(QMainWindow):
         initialize_combo_box(self.ui.product_category_cb, self.products_categories.keys(), 'All')
         initialize_combo_box(self.ui.product_brand_cb, self.products_brands.keys(), 'All')
         initialize_combo_box(self.ui.product_status_cb, self.status.keys(), 'All')
-
-
 
 
 if __name__ == "__main__":
