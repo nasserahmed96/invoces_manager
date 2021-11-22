@@ -31,9 +31,11 @@ def decrypt_text(text:str):
     return text.decode()
 
 
-def open_window(self, window):
-    self.window = window()
-    self.window.show()
+def open_window(**args):
+    parent_window = args.pop('parent_window')
+    window = args.pop('window')
+    parent_window.window = window(**args)
+    parent_window.window.show()
 
 
 def get_table_data(table_name:str):

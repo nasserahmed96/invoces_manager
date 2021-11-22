@@ -28,10 +28,14 @@ class CreateObjNameDesc(QMainWindow):
 
     def save(self):
         self.query = QSqlQuery()
-        self.query.prepare(f"""INSERT INTO {self.table_name}(name, description) VALUES (?, ?)""")
-        self.query.addBindValue(self.ui.nameLineEdit.text())
-        self.query.addBindValue(self.ui.descriptionLineEdit.text())
-        self.query.exec_()
+        self.query.prepare(f"""INSERT INTO {self.table_name} (name, description) VALUES (:name, :description)""")
+        print('Name: ', self.ui.nameLineEdit.text())
+        print('Description: ', self.ui.descriptionLineEdit.text())
+        self.query.bindValue(':name', self.ui.nameLineEdit.text())
+        self.query.bindValue(':description', self.ui.descriptionLineEdit.text())
+
+        self.query.exec()
+
         errors = self.query.lastError().text()
         if errors:
             print("Errors: ", errors)

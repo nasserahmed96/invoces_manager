@@ -33,7 +33,7 @@ class Ui_createProductWindow(object):
         self.nameLabel.setFont(font)
         self.nameLabel.setObjectName("nameLabel")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.nameLabel)
-        self.nameLineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.nameLineEdit = ValidatedLineEditor(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
