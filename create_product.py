@@ -107,6 +107,7 @@ class CreateProduct(QMainWindow):
                   "category": self.categories[self.ui.categoryComboBox.currentText()],
                   "brand": self.brands[self.ui.brandComboBox.currentText()]}
         query.prepare(self.build_insert_query("products", values.keys()))
+        self.bind_values(query, values)
         query.exec_()
         errors = query.lastError().text()
         print("Error: ", errors) if errors else QMessageBox.information(self, "Success", "Saved new product")
