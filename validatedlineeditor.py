@@ -1,6 +1,4 @@
 from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtCore import QRegExp
-from PyQt5.QtGui import QRegExpValidator
 
 
 class ValidatedLineEditor(QLineEdit):
