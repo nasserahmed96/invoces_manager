@@ -1,4 +1,9 @@
 __pycache__/*
 */__pycache__/*
-Assets/Database/*
+src/DataAccessObjectsTesting/__pycache__/*
+src/DataObjects/__pycache__/*
+Assets/Database/*.db
+src/DataAccessObjectsTesting/*.log
+src/DataAccessObjectsTesting/*.db
 *.db
+*.log
