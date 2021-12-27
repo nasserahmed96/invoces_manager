@@ -1,6 +1,7 @@
 from src.DataAccessObjectsTesting.BrandDaoTesting import BrandDaoTesting
 from src.DataAccessObjectsTesting.CategoryDaoTesting import CategoryDaoTesting
 
+
 def run_tests():
     brand_dao_testing = BrandDaoTesting()
     category_dao_testing = CategoryDaoTesting()
