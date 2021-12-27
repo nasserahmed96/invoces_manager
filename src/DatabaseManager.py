@@ -7,7 +7,9 @@ class DatabaseManager(object):
     class __DatabaseManager:
         def __init__(self):
             self.val = None
-            self.DATABASE_FILENAME = config.PROJECT_ROOT_PATH + "Assets/Database/clear_vision.db"
+            print('Project root path: ', config.PROJECT_ROOT_PATH)
+            print('Project name: ', config.PROJECT_NAME)
+            self.DATABASE_FILENAME = f'{config.PROJECT_ROOT_PATH}Assets/Database/{config.DATABASE_NAME}.db'
             self.logger = Logger()
             self.connectToDatabase()
 

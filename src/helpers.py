@@ -32,28 +32,6 @@ def get_key():
         return key
 
 
-def encrypt_text(text:str):
-    """
-    Encrypt text with Fernet with the saved key in .env and return an encrypted version of it
-    :param text:
-    :return: An ecrypted version of text
-    """
-    fernet = Fernet(get_key())
-    text = fernet.encrypt(text.encode())
-    return text.decode()
-
-
-def decrypt_text(text:str):
-    """
-    Decrypt text with Fernet with the saved key in .env and return the real value
-    :param text:
-    :return: The real version of text
-    """
-    fernet = Fernet(get_key())
-    text = fernet.decrypt(text.encode())
-    return text.decode()
-
-
 def open_window(**args):
     parent_window = args.pop('parent_window')
     window = args.pop('window')
