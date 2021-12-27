@@ -247,4 +247,4 @@ class Ui_createProductWindow(object):
         self.save_btn.setText(_translate("createProductWindow", "Save"))
         self.clear_btn.setText(_translate("createProductWindow", "Clear"))
         self.cancel_btn.setText(_translate("createProductWindow", "Cancel"))
-from validatedlineeditor import ValidatedLineEditor
+from src.validatedlineeditor import ValidatedLineEditor

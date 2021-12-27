@@ -1,0 +1,187 @@
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Query errors: no such table: brands Unable to execute statement
+ERROR:logger:Can not open database with file name: Assets/Database/clear_vision.db
+ERROR:logger:Can not open database with file name: ../Assets/Database/clear_vision.db
+ERROR:logger:Can not open database with file name: ../Assets/Database/clear_vision.db
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: UNIQUE constraint failed: brands.name Unable to fetch row
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: UNIQUE constraint failed: brands.name Unable to fetch row
+DEBUG:logger:Query errors: UNIQUE constraint failed: brands.name Unable to fetch row
+DEBUG:logger:Query errors: UNIQUE constraint failed: brands.name Unable to fetch row
+DEBUG:logger:Query errors: UNIQUE constraint failed: brands.name Unable to fetch row
+DEBUG:logger:Query errors: UNIQUE constraint failed: brands.name Unable to fetch row
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: No query Unable to fetch row
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: Parameter count mismatch
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
+DEBUG:logger:Database opened
+DEBUG:logger:Query errors: 
+DEBUG:logger:Query errors: 
