@@ -44,12 +44,18 @@ class CategoryDaoTesting(object):
         }
         self.category_dao.update_category(category_id=1, values=values)
 
+    def test_delete_category(self):
+        print('Deleting category')
+        self.category_dao.delete_category(category_id=6)
+        print('Deleted') if not self.category_dao.get_category_by_id(6) else self.print_category(self.category_dao.get_category_by_id(6))
+
     def run_tests(self):
         self.test_create_category()
         self.test_get_all_categories()
         self.test_get_category_by_id()
         self.test_get_category_by_name()
         self.test_update_category()
+        self.test_delete_category()
 
 
 if __name__ == '__main__':

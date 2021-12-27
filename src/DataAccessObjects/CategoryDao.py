@@ -54,5 +54,16 @@ class CategoryDao(DataAccessObject):
         values['id'] = category_id
         return self.update(values=values, conditions=conditions)
 
+    def delete_category(self, category_id:int):
+        conditions = [{
+            'column': 'id',
+            'operator': '=',
+            'options': ''
+        }]
+        placeholders = {
+            'id': category_id
+        }
+        return self.delete(conditions=conditions, placeholders=placeholders)
+
 
 

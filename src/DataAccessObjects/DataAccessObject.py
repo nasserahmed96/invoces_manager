@@ -131,3 +131,7 @@ class DataAccessObject(object):
         query += new_cols[:-1]
         return query
 
+    def delete(self, conditions, placeholders):
+        query_str = f'DELETE FROM {self.table_name} {self.build_conditions(conditions)}'
+        return self.execute_edit_query(query_str, place_holders=placeholders)
+

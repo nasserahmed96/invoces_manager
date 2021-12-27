@@ -51,12 +51,16 @@ class BrandDao(DataAccessObject):
         values['id'] = brand_id
         return self.update(values=values, conditions=conditions)
 
-    def delete_brand(self, id:int):
-        query = QSqlQuery()
-        query.prepare("DELETE FROM brands WHERE id=:id")
-        query.bindValue(":id", id)
-        query.exec_()
-        return self.debug_query()
+    def delete_brand(self, brand_id:int):
+        conditions = [{
+            'column': 'id',
+            'operator': '=',
+            'options': ''
+        }]
+        placeholder = {
+            'id': brand_id
+        }
+        return self.delete(conditions=conditions, placeholders=placeholder)
 
     def get_all_brands(self):
         query_result = self.select()
