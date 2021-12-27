@@ -1,0 +1,32 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>Icons/Actions-application-exit-icon.png</file>
+    <file>Icons/Actions-edit-cut-icon.png</file>
+    <file>Icons/Actions-fill-color-icon.png</file>
+    <file>Icons/analysis.png</file>
+    <file>Icons/brands_icon.png</file>
+    <file>Icons/business-proposal.png</file>
+    <file>Icons/Document-Copy-icon.png</file>
+    <file>Icons/Download_More.url</file>
+    <file>Icons/File-New-icon.png</file>
+    <file>Icons/gear_icon.png</file>
+    <file>Icons/group+people+management+business+work+employees-1320567856204506545_32.png</file>
+    <file>Icons/kisspng-blue-brand-turquoise-png-price-tag-vector-material-5a6ba043b17742.7121962215170028197269.jpg</file>
+    <file>Icons/kisspng-blue-brand-turquoise-png-price-tag-vector-material-5a6ba043d70c53.8924632615170028198808.png</file>
+    <file>Icons/nohat-kpng-1546428024.zip</file>
+    <file>Icons/open-file_40455.png</file>
+    <file>Icons/people-ge35158f96_640.png</file>
+    <file>Icons/pngegg.png</file>
+    <file>Icons/PngItem_3256236.png</file>
+    <file>Icons/preview-kisspng-82653.jpg</file>
+    <file>Icons/product-icon-17.jpg</file>
+    <file>Icons/profile.png</file>
+    <file>Icons/redo-icon.png</file>
+    <file>Icons/Save-icon.png</file>
+    <file>Icons/undo-icon.png</file>
+    <file>Icons/Zoom-icon.png</file>
+  </qresource>
+  <qresource prefix="stylesheets">
+    <file>stylesheet.css</file>
+  </qresource>
+</RCC>
