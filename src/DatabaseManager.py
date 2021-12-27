@@ -7,9 +7,7 @@ class DatabaseManager(object):
     class __DatabaseManager:
         def __init__(self):
             self.val = None
-            print('Project root path: ', config.PROJECT_ROOT_PATH)
-            print('Project name: ', config.PROJECT_NAME)
-            self.DATABASE_FILENAME = f'{config.PROJECT_ROOT_PATH}Assets/Database/{config.DATABASE_NAME}.db'
+            self.DATABASE_FILENAME = f'{config.PROJECT_ROOT_PATH}/Assets/Database/{config.PROJECT_NAME}.db'
             self.logger = Logger()
             self.connectToDatabase()
 
@@ -24,6 +22,7 @@ class DatabaseManager(object):
             database.setDatabaseName(self.DATABASE_FILENAME)
             if not database.open():
                 self.logger.error("Can not open database with file name: " + self.DATABASE_FILENAME)
+                return
             self.logger.debug("Database opened")
     instance = None
 

@@ -27,7 +27,7 @@ class BrandDaoTesting(object):
 
     def test_get_brand_by_id(self):
         print('Getting brand by ID')
-        brand = self.brand_dao.get_brand_by_id(15)
+        brand = self.brand_dao.get_brand_by_id(1)
         self.print_brand(brand)
 
     def test_get_brand_by_name(self):
@@ -40,8 +40,8 @@ class BrandDaoTesting(object):
         values = {
             'name': 'Nasser ORM'
         }
-        self.brand_dao.update_brand(15, values)
-        self.print_brand(self.brand_dao.get_brand_by_id(15))
+        self.brand_dao.update_brand(1, values)
+        self.print_brand(self.brand_dao.get_brand_by_id(1))
 
     def run_tests(self):
         self.test_create_brand()

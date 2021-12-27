@@ -20,7 +20,7 @@ class BrandDao(DataAccessObject):
         values = {
             'id': id
         }
-        query = self.select(values=values, conditions=conditions)
+        query = self.select(placeholders=values, conditions=conditions)
         if query and query.first():
             print('Fetched')
             return Brand(id=query.value("id"), name=query.value("name"), description=query.value("description"))
@@ -36,33 +36,19 @@ class BrandDao(DataAccessObject):
         values = {
             'name': brand_name
         }
-        query = self.select(values=values, conditions=conditions)
+        query = self.select(placeholders=values, conditions=conditions)
         if query and query.first():
             return Brand(id=query.value("id"), name=query.value("name"), description=query.value("description"))
         return None
 
-    def build_update_string(self, columns):
-        new_cols = ""
-        query = f"UPDATE {self.table_name} SET "
-        for col_name in columns:
-            new_cols = f"{col_name}=:{col_name},"
-        query += new_cols[:-1]
-        return query
-
-    def update(self, values, conditions):
-        query_str = self.build_update_string(values.keys()) + self.build_conditions(conditions)
-        place_holders = values
-        for condition in conditions:
-            place_holders[condition['column']] = condition['value']
-        self.execute_edit_query(query_str, place_holders)
 
     def update_brand(self, brand_id, values):
         conditions = [{
             'column': 'id',
-            'value': brand_id,
             'operator': '=',
             'options': ''
         }]
+        values['id'] = brand_id
         return self.update(values=values, conditions=conditions)
 
     def delete_brand(self, id:int):
