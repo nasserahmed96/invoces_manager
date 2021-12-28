@@ -31,29 +31,30 @@ class CategoryDaoTesting(object):
 
     def test_get_category_by_id(self):
         print('Getting category by ID')
-        self.print_category(self.category_dao.get_category_by_id(1))
+        self.print_category(self.category_dao.get_category_by_id(2))
 
     def test_get_category_by_name(self):
         print('Getting category by name')
-        self.print_category(self.category_dao.get_category_by_name('Cyrus Simpson'))
+        self.print_category(self.category_dao.get_category_by_name('Nasser ORM New'))
 
     def test_update_category(self):
         print('Updating category')
         values = {
-            'name': 'Nasser ORM'
+            'name': 'Nasser ORM New'
         }
-        self.category_dao.update_category(category_id=1, values=values)
+        self.category_dao.update_category(category_id=2, values=values)
+        self.print_category(self.category_dao.get_category_by_id(2))
 
     def test_delete_category(self):
         print('Deleting category')
-        self.category_dao.delete_category(category_id=6)
+        self.category_dao.delete_category(category_id=1)
         print('Deleted') if not self.category_dao.get_category_by_id(6) else self.print_category(self.category_dao.get_category_by_id(6))
 
     def run_tests(self):
-        self.test_create_category()
+        #self.test_create_category()
         self.test_get_all_categories()
         self.test_get_category_by_id()
-        self.test_get_category_by_name()
+        #self.test_get_category_by_name()
         self.test_update_category()
         self.test_delete_category()
 

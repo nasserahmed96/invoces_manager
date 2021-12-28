@@ -38,7 +38,7 @@ class BrandDaoTesting(object):
     def test_update_brand(self):
         print('Updating brand')
         values = {
-            'name': 'Nasser ORM'
+            'name': 'Nasser ORM New'
         }
         self.brand_dao.update_brand(1, values)
         self.print_brand(self.brand_dao.get_brand_by_id(1))

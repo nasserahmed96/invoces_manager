@@ -21,7 +21,7 @@ class CategoryDao(DataAccessObject):
         }
         query_result = self.select(conditions=conditions, placeholders=values)
         if query_result and query_result.first():
-            return Category(name=query_result.value('name'), description=query_result.value('description'))
+            return Category(id=query_result.value('id'), name=query_result.value('name'), description=query_result.value('description'))
         return None
 
     def get_category_by_name(self, category_name:str):
@@ -48,22 +48,20 @@ class CategoryDao(DataAccessObject):
     def update_category(self, category_id, values):
         conditions = [{
             'column': 'id',
+            'value': category_id,
             'operator': '=',
             'options': ''
         }]
-        values['id'] = category_id
         return self.update(values=values, conditions=conditions)
 
     def delete_category(self, category_id:int):
         conditions = [{
             'column': 'id',
+            'value': category_id,
             'operator': '=',
             'options': ''
         }]
-        placeholders = {
-            'id': category_id
-        }
-        return self.delete(conditions=conditions, placeholders=placeholders)
+        return self.delete(conditions=conditions)
 
 
 

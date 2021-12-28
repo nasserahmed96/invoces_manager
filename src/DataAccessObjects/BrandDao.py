@@ -45,22 +45,20 @@ class BrandDao(DataAccessObject):
     def update_brand(self, brand_id, values):
         conditions = [{
             'column': 'id',
+            'value': brand_id,
             'operator': '=',
             'options': ''
         }]
-        values['id'] = brand_id
         return self.update(values=values, conditions=conditions)
 
     def delete_brand(self, brand_id:int):
         conditions = [{
             'column': 'id',
+            'value': brand_id,
             'operator': '=',
             'options': ''
         }]
-        placeholder = {
-            'id': brand_id
-        }
-        return self.delete(conditions=conditions, placeholders=placeholder)
+        return self.delete(conditions=conditions)
 
     def get_all_brands(self):
         query_result = self.select()

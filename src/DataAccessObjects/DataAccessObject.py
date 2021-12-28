@@ -117,21 +117,32 @@ class DataAccessObject(object):
         return query
 
     def update(self, values, conditions):
+        placeholders = dict()
         query_str = self.build_update_string(values.keys()) + self.build_conditions(conditions)
-        place_holders = values
-        for condition in conditions:
-            place_holders[condition['column']] = values[condition['column']]
-        self.execute_edit_query(query_str, place_holders)
+        for value in values.keys():
+            placeholders[value] = values[value]
+        placeholders.update(self.extract_values_from_conditions(conditions))
+        print('Placeholders: ', placeholders)
+        self.execute_edit_query(query_str, placeholders)
 
     def build_update_string(self, columns):
         new_cols = ""
         query = f"UPDATE {self.table_name} SET "
         for col_name in columns:
-            new_cols = f"{col_name}=:{col_name},"
+            new_cols += f"{col_name}=:{col_name},"
         query += new_cols[:-1]
         return query
 
-    def delete(self, conditions, placeholders):
+    def delete(self, conditions):
+        placeholders = self.extract_values_from_conditions(conditions)
         query_str = f'DELETE FROM {self.table_name} {self.build_conditions(conditions)}'
         return self.execute_edit_query(query_str, place_holders=placeholders)
+
+    def extract_values_from_conditions(self, conditions):
+        placeholder = dict()
+        for condition in conditions:
+            placeholder[condition['column']] = condition['value']
+        return placeholder
+
+
 
