@@ -48,27 +48,26 @@ class ProductDao(DataAccessObject):
 
     def fill_product(self, query_result):
         return Product(id=query_result.value('id'),
-                        name=query_result.value('name'),
-                        description=query_result.value('description'),
-                        price=query_result.value('price'),
-                        quantity=query_result.value('quantity'),
-                        barcode=query_result.value('barcode'),
-                        notes=query_result.value('notes'),
-                        category=self.category_dao.get_category_by_id(query_result.value('id')),
-                        brand=self.brand_dao.get_brand_by_id(query_result.value('id')),
-                        status=query_result.value('status')
-                        )
+                       name=query_result.value('name'),
+                       description=query_result.value('description'),
+                       price=query_result.value('price'),
+                       quantity=query_result.value('quantity'),
+                       barcode=query_result.value('barcode'),
+                       notes=query_result.value('notes'),
+                       category=self.category_dao.get_category_by_id(query_result.value('id')),
+                       brand=self.brand_dao.get_brand_by_id(query_result.value('id')),
+                       status=query_result.value('status')
+                       )
 
     def get_product_by_name(self, product_name:str):
         conditions = [{
             'column': 'name',
+            'value': product_name,
             'operator': '=',
             'options': ''
         }]
-        placeholders = {
-            'name': product_name
-        }
-        product = self.select(conditions=conditions, placeholders=placeholders)
+
+        product = self.select(conditions=conditions)
         if product and product.first():
             return self.fill_product(product)
         return None

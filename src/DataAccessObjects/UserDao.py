@@ -69,6 +69,24 @@ class UserDao(DataAccessObject):
             return self.fill_user(query_result)
         return None
 
+    def update_user(self, user_id, values):
+        conditions = [{
+            'column': 'id',
+            'value': user_id,
+            'operator': '=',
+            'options': ''
+        }]
+        return self.update(values=values, conditions=conditions)
+
+    def delete_user(self, user_id):
+        conditions = [{
+            'column': 'id',
+            'value': user_id,
+            'operator': '=',
+            'options': ''
+        }]
+        return self.delete(conditions=conditions)
+
     def fill_user(self, query_result):
         return User(first_name=query_result.value('first_name'),
                     middle_name=query_result.value('middle_name'),

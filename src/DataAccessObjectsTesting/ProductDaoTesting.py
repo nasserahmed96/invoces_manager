@@ -39,7 +39,7 @@ class ProductDaoTesting(object):
 
     def test_get_product_by_id(self):
         print('Getting product by ID')
-        self.print_product(self.product_dao.get_product_by_id(1))
+        self.print_product(self.product_dao.get_product_by_id(3))
 
     def test_get_product_by_name(self):
         print('Getting product by name')
@@ -50,7 +50,7 @@ class ProductDaoTesting(object):
         values = {
             'name': 'Nasser ORM New'
         }
-        self.product_dao.update_product(product_id=1, values=values)
+        self.product_dao.update_product(product_id=3, values=values)
         self.print_product(self.product_dao.get_product_by_name('Nasser ORM New'))
 
     def test_delete_product(self):
