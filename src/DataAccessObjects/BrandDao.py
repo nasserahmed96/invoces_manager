@@ -14,33 +14,26 @@ class BrandDao(DataAccessObject):
     def get_brand_by_id(self, id:int):
         conditions = [{
             'column': 'id',
+            'value': id,
             'operator': '=',
             'options': ''
         }]
-        values = {
-            'id': id
-        }
-        query = self.select(placeholders=values, conditions=conditions)
+        query = self.select(conditions=conditions)
         if query and query.first():
-            print('Fetched')
             return Brand(id=query.value("id"), name=query.value("name"), description=query.value("description"))
-        print('Not fetched')
         return None
 
     def get_brand_by_name(self, brand_name):
         conditions = [{
             'column': 'name',
+            'value': brand_name,
             'operator': '=',
             'options': ''
         }]
-        values = {
-            'name': brand_name
-        }
-        query = self.select(placeholders=values, conditions=conditions)
+        query = self.select(conditions=conditions)
         if query and query.first():
             return Brand(id=query.value("id"), name=query.value("name"), description=query.value("description"))
         return None
-
 
     def update_brand(self, brand_id, values):
         conditions = [{

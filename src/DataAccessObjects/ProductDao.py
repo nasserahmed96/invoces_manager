@@ -36,13 +36,12 @@ class ProductDao(DataAccessObject):
     def get_product_by_id(self, product_id:int):
         conditions = [{
             'column': 'id',
+            'value': product_id,
             'operator': '=',
             'options': ''
         }]
-        placeholders = {
-            'id': product_id
-        }
-        product = self.select(conditions=conditions, placeholders=placeholders)
+
+        product = self.select(conditions=conditions)
         if product and product.first():
             return self.fill_product(product)
         return None

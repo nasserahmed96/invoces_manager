@@ -26,6 +26,27 @@ def get_style_sheets():
     return style_sheets
 
 
+def encrypt_text(text:str):
+    """
+    Encrypt text with Fernet with the saved key in .env and return an encrypted version of it
+    :param text:
+    :return: An ecrypted version of text
+    """
+    fernet = Fernet(get_key())
+    text = fernet.encrypt(text.encode())
+    return text.decode()
+
+
+def decrypt_text(text:str):
+    """
+    Decrypt text with Fernet with the saved key in .env and return the real value
+    :param text:
+    :return: The real version of text
+    """
+    fernet = Fernet(get_key())
+    text = fernet.decrypt(text.encode())
+    return text.decode()
+
 def get_key():
     with open(".env.json") as env_file:
         key = json.load(env_file)["key"]

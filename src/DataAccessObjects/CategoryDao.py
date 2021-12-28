@@ -13,13 +13,12 @@ class CategoryDao(DataAccessObject):
     def get_category_by_id(self, category_id:int):
         conditions = [{
             'column': 'id',
+            'value': category_id,
             'operator': '=',
             'options': ''
         }]
-        values = {
-            'id': category_id
-        }
-        query_result = self.select(conditions=conditions, placeholders=values)
+
+        query_result = self.select(conditions=conditions)
         if query_result and query_result.first():
             return Category(id=query_result.value('id'), name=query_result.value('name'), description=query_result.value('description'))
         return None
@@ -27,13 +26,12 @@ class CategoryDao(DataAccessObject):
     def get_category_by_name(self, category_name:str):
         conditions = [{
             'column': 'name',
+            'value': category_name,
             'operator': '=',
             'options': ''
         }]
-        values = {
-            'name': category_name
-        }
-        query_result = self.select(conditions=conditions, placeholders=values)
+
+        query_result = self.select(conditions=conditions)
         if query_result and query_result.first():
             return Category(name=query_result.value('name'), description=query_result.value('description'))
         return None

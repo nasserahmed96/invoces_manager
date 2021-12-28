@@ -60,7 +60,9 @@ class DataAccessObject(object):
         or not
         :return:
         """
-        return ' WHERE ' + ' AND '.join([self.get_condition_string(condition) for condition in conditions]) if any(
+        #Remove the logic operator from the first condition
+        conditions[0]['logic'] = ''
+        return ' WHERE ' + ' '.join([self.get_condition_string(condition) for condition in conditions]) if any(
             conditions) else ""
 
     def get_condition_string(self, condition):
@@ -69,9 +71,9 @@ class DataAccessObject(object):
         :param condition: A condition object contains the required parameters for the condition
         :return: A condition string to be used in SQL query
         """
-        return f"{condition['column']} {condition['operator']} :{condition['column']} {condition['options']}"
+        return f"{condition['logic']} {condition['column']} {condition['operator']} :{condition['column']} {condition['options']}"
 
-    def select(self, columns=None, placeholders=None, conditions=None):
+    def select(self, columns=None, conditions=None):
         """
         Get the columns with conditions and values
         :param columns: The columns we want to retrieve from the table, if not presented use '*' instead
@@ -79,7 +81,9 @@ class DataAccessObject(object):
         :param conditions: Dictionary contains the required conditions on the query
         :return: QSqlQuery object after execution
         """
+        print(f'Build conditions: {self.build_conditions(conditions) if conditions else ""}')
         query_str = f"""SELECT {" ".join(columns) if columns else '*'} FROM {self.table_name} {self.build_conditions(conditions) if conditions else ''}"""
+        placeholders = self.extract_values_from_conditions(conditions) if conditions else None
         return self.execute_select_query(query_str, placeholders)
 
     def execute_select_query(self, query_str, placeholders=None):
