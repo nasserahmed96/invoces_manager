@@ -2,7 +2,7 @@ import logging
 
 class Logger:
     def __init__(self):
-        self.LOGS_FILE_NAME = "clear_vision.log"
+        self.LOGS_FILE_NAME = ""
 
     def debug(self, message):
         logging.basicConfig(filename=self.LOGS_FILE_NAME, level=logging.DEBUG)

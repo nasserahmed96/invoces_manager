@@ -20,7 +20,7 @@ class CreateBrand(QWidget):
 
     def initialize_db(self):
         database = QSqlDatabase.addDatabase("QSQLITE")
-        database.setDatabaseName("clear_vision.db")
+        database.setDatabaseName("")
         if not database.open():
             print("Unable to open database")
             sys.exit(1)

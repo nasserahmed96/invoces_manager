@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/logos/images/clear_vision_logo.jpg</normaloff>:/logos/images/clear_vision_logo.jpg</iconset>
+    <normaloff>:/logos/images/</normaloff>:/logos/images/</iconset>
   </property>
   <property name="windowOpacity">
    <double>9.000000000000000</double>

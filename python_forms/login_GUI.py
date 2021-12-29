@@ -23,7 +23,7 @@ class Ui_login_form(object):
         login_form.setMinimumSize(QtCore.QSize(382, 627))
         login_form.setMaximumSize(QtCore.QSize(382, 627))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logos/images/clear_vision_logo.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/logos/images/"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         login_form.setWindowIcon(icon)
         login_form.setWindowOpacity(9.0)
         login_form.setAutoFillBackground(False)

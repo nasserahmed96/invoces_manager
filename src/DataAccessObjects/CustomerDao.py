@@ -2,6 +2,7 @@ from src.DataAccessObjects.DataAccessObject import DataAccessObject
 from src.DataAccessObjects.UserDao import UserDao
 from src.DataObjects.Customer import Customer
 
+
 class CustomerDao(DataAccessObject):
     def __init__(self):
         super(CustomerDao, self).__init__(table_name='customers')

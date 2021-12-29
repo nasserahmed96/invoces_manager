@@ -4,6 +4,7 @@ from PyQt5.QtCore import QRegExp, QPoint
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 from helpers import show_validation_error
+import config
 
 
 class CreateForm(QMainWindow):
@@ -65,7 +66,7 @@ class CreateForm(QMainWindow):
 
     def initialize_db(self):
         database = QSqlDatabase.addDatabase("QSQLITE")
-        database.setDatabaseName("clear_vision.db")
+        database.setDatabaseName('')
         if not database.open():
             print("Unable to open database")
             sys.exit(1)

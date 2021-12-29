@@ -37,7 +37,7 @@ class Login(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    splash = QSplashScreen(QPixmap('images/clear_vision_logo.jpg'))
+    splash = QSplashScreen(QPixmap(''))
     splash.show()
     app.processEvents()
     window = Login()

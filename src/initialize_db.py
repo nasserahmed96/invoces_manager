@@ -10,7 +10,7 @@ class DatabaseConnection(object):
     def initialize_db(self):
         print("Database")
         self.database = QSqlDatabase.addDatabase("QSQLITE", "Base")
-        self.database.setDatabaseName("clear_vision.db")
+        self.database.setDatabaseName("")
         if not self.database:
             print("Unable to open database")
             sys.exit(1)
