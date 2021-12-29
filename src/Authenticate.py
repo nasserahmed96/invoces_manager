@@ -1,8 +1,8 @@
 # This Python file uses the following encoding: utf-8
 import bcrypt
 from PyQt5.QtSql import QSqlQuery
-from Logger import Logger
-from DatabaseManager import DatabaseManager
+from src.Logger import Logger
+from src.DatabaseManager import DatabaseManager
 
 
 class Authentication:
@@ -22,15 +22,6 @@ class Authentication:
             return True
         return False
 
-    def set_password(self, id, password, username):
-        salt = bcrypt.gensalt()
-        hashed = bcrypt.hashpw((username+password).encode(), salt)
-        query = QSqlQuery()
-        query.prepare("INSERT INTO employees(user_id, password) VALUES (:user_id, :password)")
-        query.bindValue(":user_id", id)
-        query.bindValue(":password", hashed.decode())
-        query.exec_()
-        self.logger.debug(query.lastError())
-
-
+    def hash_password(self, password, username):
+        return bcrypt.hashpw((username+password).encode(), bcrypt.gensalt()).decode()
 
