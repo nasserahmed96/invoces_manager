@@ -104,7 +104,7 @@ class DataAccessObject(object):
         :return: True in case of success False instead
         """
         query = self.execute_query(query_str, place_holders=place_holders)
-        return self.debug_query(query)
+        return query.lastInsertId() if self.debug_query(query) else None
 
     def execute_query(self, query_str, place_holders):
         """
