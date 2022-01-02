@@ -1,10 +1,7 @@
 import sys, csv, re
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QMessageBox, QWidget)
-from PyQt5.QtGui import QStandardItem, QStandardItemModel
-from PyQt5.QtCore import Qt
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel
 from python_forms.createEmployee_GUI import Ui_createEmployeeWindow
-from helpers import encrypt_text, get_table_data
+from helpers import get_table_data
 
 
 class CreateEmployee(QMainWindow):
@@ -12,7 +9,6 @@ class CreateEmployee(QMainWindow):
         super(CreateEmployee, self).__init__()
         self.ui = Ui_createEmployeeWindow()
         self.ui.setupUi(self)
-        self.initialize_db()
         self.initializeUI()
         self.validation_widgets = []
         self.validation_error = False
@@ -28,13 +24,6 @@ class CreateEmployee(QMainWindow):
         self.ui.save_btn.clicked.connect(self.save)
         self.ui.clear_btn.clicked.connect(self.clear_validation_errors)
 
-    def initialize_db(self):
-        database = QSqlDatabase.addDatabase("QSQLITE")
-        database.setDatabaseName("")
-        if not database.open():
-            print("Unable to open database")
-            sys.exit(1)
-
     def clear_validation_errors(self):
         """
         Clear all validation colors and tool tips that appeared, mainly it clears the password fields, but if widgets
@@ -47,13 +36,6 @@ class CreateEmployee(QMainWindow):
             widget["widget"].setStyleSheet("")
 
     def save(self):
-        query = QSqlQuery()
-        query.prepare("""
-                INSERT INTO users(first_name, middle_name, last_name, email, address, phone_number, gender, 
-                password) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                """)
-
         self.append_validation_widget(self.validation_widgets, self.ui.firstNameLineEdit, "name")
         self.append_validation_widget(self.validation_widgets, self.ui.middleNameLineEdit, "name")
         self.append_validation_widget(self.validation_widgets, self.ui.lastNameLineEdit, "name")
@@ -73,31 +55,7 @@ class CreateEmployee(QMainWindow):
             self.ui.passwordLineEdit.setStyleSheet("background-color: red;")
             self.ui.confirmPasswordLineEdit.setStyleSheet("background-color: red;")
             return
-        self.bind_values(query)
-        query.exec_()
-        errors = query.lastError().text()
-        if errors:
-            print("Error: ", errors)
-        else:
-            print("Saved new user successfully")
-            query.prepare(
-            """INSERT INTO employees(user_id, job_title, username) VALUES (?, ?, ?)
-            """)
-            query.addBindValue(query.lastInsertId())
-            query.addBindValue(self.job_titles[self.ui.jobTitleComboBox.currentText()])
-            query.addBindValue(self.ui.userNameLineEdit.text())
-            query.exec_()
-            print(query.lastError().text())
 
-    def bind_values(self, query):
-        query.addBindValue(self.ui.firstNameLineEdit.text())
-        query.addBindValue(self.ui.middleNameLineEdit.text())
-        query.addBindValue(self.ui.lastNameLineEdit.text())
-        query.addBindValue(self.ui.emailLineEdit.text())
-        query.addBindValue(self.ui.addressLineEdit.text())
-        query.addBindValue(self.ui.phoneNumberLineEdit.text())
-        query.addBindValue(self.ui.genderComboBox.currentText())
-        query.addBindValue(encrypt_text(self.ui.passwordLineEdit.text()))
 
     def append_validation_widget(self, widgets:list, widget:QWidget, regex:str):
         """

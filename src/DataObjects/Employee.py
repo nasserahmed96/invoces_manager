@@ -25,6 +25,10 @@ class Employee:
 
     def serialize_employee(self):
         user_dict = self.__dict__.pop('user').__dict__
+        """
+        Remove user ID to revent conflicting between employee ID and user ID
+        """
+        user_dict.pop('id')
         self.__dict__.update(user_dict)
         return self.__dict__
 

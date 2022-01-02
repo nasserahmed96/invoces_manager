@@ -47,6 +47,7 @@ def decrypt_text(text:str):
     text = fernet.decrypt(text.encode())
     return text.decode()
 
+
 def get_key():
     with open(".env.json") as env_file:
         key = json.load(env_file)["key"]

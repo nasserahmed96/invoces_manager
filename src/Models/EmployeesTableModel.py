@@ -1,7 +1,6 @@
 from PyQt5.QtCore import QAbstractTableModel, QModelIndex, Qt, QVariant
-from PyQt5.QtGui import QColor
 from src.DataAccessObjects.EmployeeDao import EmployeeDao
-import numpy as np
+from src.Logger import Logger
 
 
 class EmployeesTableModel(QAbstractTableModel):
@@ -10,6 +9,7 @@ class EmployeesTableModel(QAbstractTableModel):
         self.employee_dao = EmployeeDao()
         self.employees_dataframe = self.employee_dao.get_employees_dataframe()
         self.columns = self.employees_dataframe.columns
+        self.logger = Logger()
 
     def get_employees(self):
         return self.employees_dataframe
@@ -25,20 +25,12 @@ class EmployeesTableModel(QAbstractTableModel):
             return self.columns[section]
 
     def data(self, index=QModelIndex(), role=Qt.DisplayRole):
-        print('Index: ', index)
-        print(f'Index row:  {index.row()} Role: {role}')
         if not index.isValid():
-            print('Invalid')
+            self.logger.error('Invalid index')
             return QVariant()
         if role == Qt.DisplayRole:
-            return self.get_employees().iat[index.row(), index.column()]
-        return QVariant()
+            return str(self.get_employees().iat[index.row(), index.column()])
 
-    def roleNames(self):
-        roles = {
-            'First name': Qt.UserRole + 1,
-            'Middle name': Qt.UserRole + 2
-        }
-        return roles
+        return QVariant()
 
 
