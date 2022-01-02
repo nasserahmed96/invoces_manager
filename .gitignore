@@ -6,6 +6,12 @@ src/DataAccessObjects/__pycache__/*
 Assets/Database/*.db
 src/DataAccessObjectsTesting/*.log
 src/DataAccessObjectsTesting/*.db
+src/Models/__pycache__/*
+src/Models/__pycache__
+forms/__pycahe__/*
+forms/__pycahe__
+python_forms/__pycache__/*
+python_forms/__pycache__
 *.db
 *.log
 .env*

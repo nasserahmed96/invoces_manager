@@ -88,13 +88,15 @@ class UserDao(DataAccessObject):
         return self.delete(conditions=conditions)
 
     def fill_user(self, query_result):
-        return User(first_name=query_result.value('first_name'),
-                    middle_name=query_result.value('middle_name'),
-                    last_name=query_result.value('last_name'),
-                    phone_number=query_result.value('phone_number'),
-                    address=query_result.value('address'),
-                    gender=query_result.value('gender'),
-                    email=query_result.value('email'),
-                    notes=query_result.value('notes'),
-                    status=query_result.value('status')
+        return User(
+            id=query_result.value('id'),
+            first_name=query_result.value('first_name'),
+            middle_name=query_result.value('middle_name'),
+            last_name=query_result.value('last_name'),
+            phone_number=query_result.value('phone_number'),
+            address=query_result.value('address'),
+            gender=query_result.value('gender'),
+            email=query_result.value('email'),
+            notes=query_result.value('notes'),
+            status=query_result.value('status')
                     )

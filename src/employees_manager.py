@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QHeaderView, QWidget
 from PyQt5.QtGui import QStandardItemModel
 from python_forms.emplyees_manager_GUI import Ui_employee_management_window
+from src.Models.EmployeesTableModel import EmployeesTableModel
 from create_employee import CreateEmployee
 from helpers import open_window
 
@@ -14,12 +15,12 @@ class EmployeesManager(QMainWindow):
         self.initializeUI()
 
     def initializeUI(self):
-        self.ui.add_employee_btn.clicked.connect(lambda: open_window(self, CreateEmployee))
+        #self.ui.add_employee_btn.clicked.connect(lambda: open_window(self, CreateEmployee))
         self.setupTable()
 
     def setupTable(self):
-        self.model = QStandardItemModel()
-        self.model.setHorizontalHeaderLabels(["First name", "Middle name", "Last name", "Email", "Phone number"])
+        self.model = EmployeesTableModel()
+        #self.model.setHorizontalHeaderLabels(["First name", "Middle name", "Last name", "Email", "Phone number"])
         self.ui.employees_table_view.setModel(self.model)
 
 
