@@ -19,7 +19,6 @@ class CreateProduct(CreateForm):
         self.ui.categoryComboBox.addItems(self.categories.keys())
         self.ui.brandComboBox.addItems(self.brands)
 
-
     def initializeUI(self):
         self.set_mandatory_widgets([self.ui.nameLineEdit, self.ui.descriptionLineEdit, self.ui.barcodeLineEdit])
         self.fill_combo_boxes()

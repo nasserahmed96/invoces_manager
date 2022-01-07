@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication
-from python_forms.emplyees_manager_GUI import Ui_employee_management_window
+from python_forms.employees_manager_GUI import Ui_employee_management_window
 from src.Models.EmployeesTableModel import EmployeesTableModel
 from create_employee import CreateEmployee
 
@@ -18,7 +18,7 @@ class EmployeesManager(QMainWindow):
 
 
     def open_create_employee(self):
-        create_employee = CreateEmployee()
+        create_employee = CreateEmployee(self)
         create_employee.show()
 
     def initializeUI(self):

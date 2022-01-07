@@ -100,3 +100,6 @@ def show_validation_error(widget, error_msg=None):
     error_tool_tip = QToolTip
     error_tool_tip.showText(get_global_widget_position(widget), error_msg, widget, widget.rect(), 3000)
     print('Widget placeholder: ', widget.placeholderText())
+
+
+

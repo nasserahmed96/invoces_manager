@@ -83,7 +83,6 @@ class CreateForm(QMainWindow):
                 return False
         return True
 
-
     def build_insert_query(self, cols):
         cols_values = "VALUES ("
         cols_names = ""
@@ -139,7 +138,6 @@ class CreateForm(QMainWindow):
         reply = QMessageBox.question(self, 'Message',
                                            "Are you sure you want to exit the program?", QMessageBox.Yes, QMessageBox.No)
         event.accept() if reply == QMessageBox.Yes else event.ignore()
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

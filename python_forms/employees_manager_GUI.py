@@ -24,6 +24,21 @@ class Ui_employee_management_window(object):
         employee_management_window.setMaximumSize(QtCore.QSize(1000000, 1000000))
         employee_management_window.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(employee_management_window)
+        self.centralwidget.setStyleSheet("QPushButton{\n"
+"  background-color: #838383;\n"
+"  border: none;\n"
+"  color: black;\n"
+"  text-align: center;\n"
+"  text-decoration: none;\n"
+"}\n"
+"QPushButton:hover{\n"
+"background-color: #585858;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"background-color:rgb(54, 54, 54);\n"
+"}\n"
+"\n"
+"")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -71,13 +86,8 @@ class Ui_employee_management_window(object):
         font.setWeight(75)
         font.setStrikeOut(False)
         self.search_employee_btn.setFont(font)
-        self.search_employee_btn.setStyleSheet("\n"
-"  background-color: #D9D9D9;\n"
-"  border: none;\n"
-"  color: black;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"")
+        self.search_employee_btn.setAutoFillBackground(False)
+        self.search_employee_btn.setStyleSheet("")
         self.search_employee_btn.setObjectName("search_employee_btn")
         self.horizontalLayout.addWidget(self.search_employee_btn)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -124,13 +134,7 @@ class Ui_employee_management_window(object):
         font.setWeight(75)
         font.setStrikeOut(False)
         self.add_employee_btn.setFont(font)
-        self.add_employee_btn.setStyleSheet("\n"
-"  background-color: #D9D9D9;\n"
-"  border: none;\n"
-"  color: black;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"")
+        self.add_employee_btn.setStyleSheet("")
         self.add_employee_btn.setObjectName("add_employee_btn")
         self.horizontalLayout_2.addWidget(self.add_employee_btn)
         self.verticalLayout.addLayout(self.horizontalLayout_2)

@@ -30,7 +30,9 @@ class EmployeesTableModel(QAbstractTableModel):
             return QVariant()
         if role == Qt.DisplayRole:
             return str(self.get_employees().iat[index.row(), index.column()])
-
         return QVariant()
+
+    def save(self, employee):
+        return self.employee_dao.create_employee(employee.pop('employee'), employee.pop('password'))
 
 
