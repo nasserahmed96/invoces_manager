@@ -11,6 +11,13 @@ class EmployeesTableModel(QAbstractTableModel):
         self.columns = self.employees_dataframe.columns
         self.logger = Logger()
 
+    def select(self, conditions=None, placeholders=None):
+        print('Conditions: ', conditions)
+        print('Place holders: ', placeholders)
+        self.employees_dataframe = self.employee_dao.get_employees_dataframe(conditions=conditions, placeholders=placeholders)
+        print('Search result: ', self.employees_dataframe)
+        self.dataChanged.emit(QModelIndex(), QModelIndex())
+
     def get_employees(self):
         return self.employees_dataframe
 

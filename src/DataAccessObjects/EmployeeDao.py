@@ -32,11 +32,11 @@ class EmployeeDao(DataAccessObject):
                                       username=query_result.value('username')))
         return employees
 
-    def get_employees_dataframe(self, query_str=None):
+    def get_employees_dataframe(self, conditions='', placeholders=None):
         employees = []
-        query_str = """SELECT users.*, employees.id AS employee_id, 
-                employees.username FROM employees INNER JOIN users ON users.id=employees.user_id""" if not query_str else None
-        query_result = self.execute_select_query(query_str=query_str)
+        query = """SELECT users.*, employees.id AS employee_id, 
+                employees.username FROM employees INNER JOIN users ON users.id=employees.user_id""" + conditions
+        query_result = self.execute_select_query(query_str=query, placeholders=placeholders)
         while(query_result.next()):
             user = self.user_dao.fill_user(query_result)
             employees.append(Employee(

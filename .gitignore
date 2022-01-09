@@ -15,3 +15,5 @@ python_forms/__pycache__
 *.db
 *.log
 .env*
+src/GoogleSheetsDataAccessObjects/credentials.json
+src/GoogleSheetsDataAccessObjects/token.json
