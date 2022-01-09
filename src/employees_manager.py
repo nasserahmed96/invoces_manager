@@ -4,7 +4,9 @@ from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtSql import QSqlQuery
 from python_forms.employees_manager_GUI import Ui_employee_management_window
 from src.Models.EmployeesTableModel import EmployeesTableModel
+
 from create_employee import CreateEmployee
+from src.EmployeeProfile import EmployeeProfile
 
 
 class EmployeesManager(QMainWindow):
@@ -19,6 +21,15 @@ class EmployeesManager(QMainWindow):
     def connect_signals_slots(self):
         self.ui.add_employee_btn.clicked.connect(self.open_create_employee)
         self.ui.search_employee_btn.clicked.connect(self.search)
+        self.ui.employees_table_view.doubleClicked.connect(self.open_employee_profile)
+
+    def open_employee_profile(self):
+        print('Employee profile')
+        idx = self.ui.employees_table_view.selectionModel().selectedIndexes()[0]
+        print('Employee ID ', self.model.index(idx.row(), 0).data())
+        employee_profile = EmployeeProfile(self.model.index(idx.row(), 0).data(), self)
+        employee_profile.show()
+
 
     def build_conditions(self, conditions):
         """
