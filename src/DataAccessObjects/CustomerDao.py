@@ -1,3 +1,4 @@
+import pandas as pd
 from src.DataAccessObjects.DataAccessObject import DataAccessObject
 from src.DataAccessObjects.UserDao import UserDao
 from src.DataObjects.Customer import Customer
@@ -62,3 +63,20 @@ class CustomerDao(DataAccessObject):
             'operator': '=',
             'options': ''
         }])
+
+    def get_customers_dataframe(self, conditions='', placeholders=None):
+        customers = []
+        query = """SELECT users.*, customers.id AS customer_id  
+                   FROM customers INNER JOIN users ON users.id=customers.user_id""" + conditions
+        query_result = self.execute_select_query(query_str=query, placeholders=placeholders)
+        while (query_result.next()):
+            user = self.user_dao.fill_user(query_result)
+            customers.append(Customer(
+                id=query_result.value('customer_id'),
+                user=user,
+            ).serialize_customer())
+        customers_dataframe = pd.DataFrame(customers)
+        new_columns = [column.replace('_', ' ').capitalize() for column in customers_dataframe.columns]
+        customers_dataframe.rename({customers_dataframe.columns[i]: new_columns[i] for i in range(len(new_columns))},
+                                   axis=1, inplace=True)
+        return customers_dataframe
