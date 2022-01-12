@@ -44,6 +44,12 @@ class EmployeesManager(QMainWindow):
         conditions.append(
             self.build_condition('employees.username', self.ui.username_line_edit.text(), '=', 'COLLATE NOCASE', 'AND')
         ) if self.ui.username_line_edit.text() != '' else None
+        conditions.append(
+            self.build_condition('users.email', self.ui.email_line_edit.text(), '=', 'COLLATE NOCASE', 'AND')
+        ) if self.ui.email_line_edit.text() != '' else None
+        conditions.append(
+            self.build_condition('users.phone_number', self.ui.phone_number_line_edit.text(), '=', 'COLLATE NOCASE', 'AND')
+        ) if self.ui.phone_number_line_edit.text() != '' else None
         conditions.extend(self.search_by_name()) if self.ui.name_line_edit.text() != '' else None
         self.model.select(re.sub('(AND|OR)$', '', self.build_conditions(conditions)), self.extract_values_from_conditions(conditions))
         self.ui.employees_table_view.update()

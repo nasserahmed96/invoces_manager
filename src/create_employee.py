@@ -99,10 +99,8 @@ class CreateEmployee(QMainWindow):
     def prepare_employee(self):
         gender = {'gender': self.ui.genderComboBox.currentText()}
         columns = dict()
-        for i in range(0, self.ui.formLayout.rowCount()):
-            widget = self.ui.formLayout.itemAt(i, QFormLayout.FieldRole).widget()
-            if isinstance(widget, QLineEdit):
-                columns[widget.column_name] = widget.text() if isinstance(widget, QLineEdit) else None
+        for widget in self.ui.basicInformationLayout.parentWidget().findChildren(QLineEdit):
+            columns[widget.column_name] = widget.text()
         columns.update(gender)
         user = User(first_name=columns['first_name'],
                     middle_name=columns['middle_name'],
@@ -116,8 +114,8 @@ class CreateEmployee(QMainWindow):
     def save(self):
         """
         """
-        self.current_valid_inputs = sum([self.ui.formLayout.itemAt(i, QFormLayout.FieldRole).widget().is_valid() for i in range(0, self.ui.formLayout.rowCount())
-                                         if isinstance(self.ui.formLayout.itemAt(i, QFormLayout.FieldRole).widget(), QLineEdit)])
+        self.current_valid_inputs = sum([widget.is_valid() for widget in
+                                         self.ui.basicInformationLayout.parentWidget().findChildren(QLineEdit)])
         if not self.check_password_confirm() or self.current_valid_inputs != self.valid_inputs:
             QMessageBox.information(self, "validation error", 'Invalid input')
             return
