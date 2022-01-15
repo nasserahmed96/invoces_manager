@@ -36,5 +36,13 @@ class BrandsTableModel(QAbstractTableModel):
         self.brands_dataframe = self.brands_dao.get_brands_dataframe(conditions=conditions)
         self.dataChanged.emit(QModelIndex(), QModelIndex())
 
+    def get_completer_data(self):
+        """
+        I won't use model as the completer source, as it will only match the current data in the model not the whole
+        data required by the user
+        :return: QStringList contains the required data for the completer
+        """
+        return self.brands_dao.get_data_for_completer(column='brands.name')
+
     def save(self, brand):
         return self.brands_dao.create_brand(brand)
