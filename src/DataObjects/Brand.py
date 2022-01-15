@@ -22,5 +22,8 @@ class Brand(object):
     def set_description(self, description):
         self.description = description
 
+    def serialize_brand(self):
+        return self.__dict__
+
     def __str__(self):
         return self.name

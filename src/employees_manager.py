@@ -1,22 +1,16 @@
 import sys
 import re
-from PyQt5.QtWidgets import QMainWindow, QApplication
-from PyQt5.QtSql import QSqlQuery
+from PyQt5.QtWidgets import QApplication
 from python_forms.employees_manager_GUI import Ui_employee_management_window
+from src.base_manager import BaseManager
 from src.Models.EmployeesTableModel import EmployeesTableModel
-
 from create_employee import CreateEmployee
 from src.EmployeeProfile import EmployeeProfile
 
 
-class EmployeesManager(QMainWindow):
-    def __init__(self):
-        super(EmployeesManager, self).__init__()
-        self.ui = Ui_employee_management_window()
-        self.ui.setupUi(self)
-        self.model = EmployeesTableModel()
-        self.connect_signals_slots()
-        self.initializeUI()
+class EmployeesManager(BaseManager):
+    def __init__(self, parent=None):
+        super(EmployeesManager, self).__init__(parent=parent, ui=Ui_employee_management_window(), model=EmployeesTableModel())
 
     def connect_signals_slots(self):
         self.ui.add_employee_btn.clicked.connect(self.open_create_employee)
@@ -29,15 +23,6 @@ class EmployeesManager(QMainWindow):
         print('Employee ID ', self.model.index(idx.row(), 0).data())
         employee_profile = EmployeeProfile(self.model.index(idx.row(), 0).data(), self)
         employee_profile.show()
-
-
-    def build_conditions(self, conditions):
-        """
-        This function builds conditions for the SELECT query, based on whether the required widget has something in it
-        or not
-        :return:
-        """
-        return ' WHERE ' + ' '.join([self.get_condition_string(condition) for condition in conditions]) if any(conditions) else ""
 
     def search(self):
         conditions = []
@@ -53,21 +38,6 @@ class EmployeesManager(QMainWindow):
         conditions.extend(self.search_by_name()) if self.ui.name_line_edit.text() != '' else None
         self.model.select(re.sub('(AND|OR)$', '', self.build_conditions(conditions)), self.extract_values_from_conditions(conditions))
         self.ui.employees_table_view.update()
-
-    def build_condition(self, column, value, operator, options='', logic=''):
-        return {
-            'column': column,
-            'value': value,
-            'operator': operator,
-            'options': options,
-            'logic': logic
-        }
-
-    def extract_values_from_conditions(self, conditions):
-        placeholder = dict()
-        for condition in conditions:
-            placeholder[condition['column'].replace('.', '_')] = condition['value']
-        return placeholder
 
     def search_by_name(self):
         name_array = self.ui.name_line_edit.text().split(' ')
@@ -93,27 +63,12 @@ class EmployeesManager(QMainWindow):
             ]
         return result
 
-    def get_condition_string(self, condition):
-        """
-        Get a condition string out of a condition object
-        :param condition: A condition object contains the required parameters for the condition
-        :return: A condition string to be used in SQL query
-        """
-        return f"{condition['column']} {condition['operator']} :{condition['column'].replace('.', '_')} {condition['options']} {condition['logic']}"
-
-    def execute_select_query(self, query_str):
-        query = QSqlQuery()
-        query.exec_(query_str)
-        return query
-
     def open_create_employee(self):
         create_employee = CreateEmployee(self)
         create_employee.show()
 
-    def initializeUI(self):
-        self.setupTable()
-
-    def setupTable(self):
+    def setup_table(self):
+        print('Child setup table')
         self.ui.employees_table_view.setModel(self.model)
 
 

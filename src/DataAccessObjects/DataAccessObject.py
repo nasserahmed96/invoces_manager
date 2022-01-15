@@ -77,7 +77,6 @@ class DataAccessObject(object):
         """
         Get the columns with conditions and values
         :param columns: The columns we want to retrieve from the table, if not presented use '*' instead
-        :param placeholders: Values to the conditions to be retrieved
         :param conditions: Dictionary contains the required conditions on the query
         :return: QSqlQuery object after execution
         """

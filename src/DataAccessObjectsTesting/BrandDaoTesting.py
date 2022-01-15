@@ -48,13 +48,17 @@ class BrandDaoTesting(object):
         self.brand_dao.delete_brand(brand_id=6)
         print('Deleted brand: ', 6) if not self.brand_dao.get_brand_by_id(6) else self.print_brand(self.brand_dao.get_brand_by_id(6))
 
+    def test_get_brands_dataframe(self):
+        print(self.brand_dao.get_brands_dataframe())
+
     def run_tests(self):
-        self.test_create_brand()
+        """self.test_create_brand()
         self.test_get_all_brands()
         self.test_get_brand_by_id()
         self.test_get_brand_by_name()
         self.test_update_brand()
-        self.test_delete_brand()
+        self.test_delete_brand()"""
+        self.test_get_brands_dataframe()
 
 
 if __name__ == '__main__':

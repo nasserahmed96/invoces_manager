@@ -24,6 +24,21 @@ class Ui_brands_manager(object):
 "  margin: 4px 2px;\n"
 "}")
         self.centralwidget = QtWidgets.QWidget(brands_manager)
+        self.centralwidget.setStyleSheet("QPushButton{\n"
+"  background-color: #838383;\n"
+"  border: none;\n"
+"  color: black;\n"
+"  text-align: center;\n"
+"  text-decoration: none;\n"
+"}\n"
+"QPushButton:hover{\n"
+"background-color: #585858;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"background-color:rgb(54, 54, 54);\n"
+"}\n"
+"\n"
+"")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -55,7 +70,6 @@ class Ui_brands_manager(object):
         font.setBold(True)
         font.setItalic(False)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         self.search_btn.setFont(font)
         self.search_btn.setObjectName("search_btn")
@@ -75,26 +89,23 @@ class Ui_brands_manager(object):
         self.create_btn.setMinimumSize(QtCore.QSize(100, 50))
         self.create_btn.setMaximumSize(QtCore.QSize(210, 50))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setPointSize(15)
         font.setBold(True)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         self.create_btn.setFont(font)
         self.create_btn.setObjectName("create_btn")
         self.horizontalLayout_4.addWidget(self.create_btn)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.brand_table_view = QtWidgets.QTableView(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.brand_table_view.sizePolicy().hasHeightForWidth())
-        self.brand_table_view.setSizePolicy(sizePolicy)
         self.brand_table_view.setObjectName("brand_table_view")
+        self.brand_table_view.horizontalHeader().setCascadingSectionResizes(True)
+        self.brand_table_view.horizontalHeader().setSortIndicatorShown(True)
+        self.brand_table_view.horizontalHeader().setStretchLastSection(True)
         self.verticalLayout.addWidget(self.brand_table_view)
         brands_manager.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(brands_manager)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1019, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1019, 19))
         self.menubar.setObjectName("menubar")
         brands_manager.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(brands_manager)
