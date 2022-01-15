@@ -50,14 +50,19 @@ class CategoryDaoTesting(object):
         self.category_dao.delete_category(category_id=1)
         print('Deleted') if not self.category_dao.get_category_by_id(6) else self.print_category(self.category_dao.get_category_by_id(6))
 
-    def run_tests(self):
-        #self.test_create_category()
-        self.test_get_all_categories()
-        self.test_get_category_by_id()
-        #self.test_get_category_by_name()
-        self.test_update_category()
-        self.test_delete_category()
+    def test_get_categories_dataframe(self):
+        print(self.category_dao.get_categories_dataframe())
 
+    def run_tests(self):
+     """
+     self.test_create_category()
+     self.test_get_all_categories()
+     self.test_get_category_by_id()
+     self.test_get_category_by_name()
+     self.test_update_category()
+     self.test_delete_category()
+     """
+     self.test_get_categories_dataframe()
 
 if __name__ == '__main__':
     categories_testing = CategoryDaoTesting()
