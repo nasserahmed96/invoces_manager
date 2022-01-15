@@ -1,3 +1,4 @@
+import pandas as pd
 from src.DataObjects.Category import Category
 from src.DataAccessObjects.DataAccessObject import DataAccessObject
 
@@ -8,7 +9,7 @@ class CategoryDao(DataAccessObject):
 
     def create_category(self, category:Category):
         category = {'name': category.name, 'description': category.description}
-        self.insert(values=category)
+        return self.insert(values=category)
 
     def get_category_by_id(self, category_id:int):
         conditions = [{
@@ -60,6 +61,28 @@ class CategoryDao(DataAccessObject):
             'options': ''
         }]
         return self.delete(conditions=conditions)
+
+    def get_categories_dataframe(self, conditions=''):
+        categories = []
+        categories_result = self.select(conditions=conditions)
+        while categories_result.next():
+            categories.append(Category(id=categories_result.value('id'),
+                                       name=categories_result.value('name'),
+                                       description=categories_result.value('description')).serialize_category())
+
+        categories_dataframe = pd.DataFrame(categories)
+        new_columns = [column.replace('_', ' ').capitalize() for column in categories_dataframe.columns]
+        categories_dataframe.rename({categories_dataframe.columns[i]: new_columns[i] for i in range(len(new_columns))},
+                                    axis=1, inplace=True)
+        return categories_dataframe
+
+    def get_data_for_completer(self, column):
+        column_values = []
+        column_results = self.select(columns=[column,])
+        while column_results.next():
+            column_values.append(str(column_results.value(column)))
+        return column_values
+
 
 
 

@@ -24,3 +24,6 @@ class Category(object):
 
     def __str__(self):
         return self.name
+
+    def serialize_category(self):
+        return self.__dict__
