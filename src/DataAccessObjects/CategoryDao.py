@@ -9,7 +9,7 @@ class CategoryDao(DataAccessObject):
 
     def create_category(self, category:Category):
         category = {'name': category.name, 'description': category.description}
-        self.insert(values=category)
+        return self.insert(values=category)
 
     def get_category_by_id(self, category_id:int):
         conditions = [{
@@ -75,6 +75,13 @@ class CategoryDao(DataAccessObject):
         categories_dataframe.rename({categories_dataframe.columns[i]: new_columns[i] for i in range(len(new_columns))},
                                     axis=1, inplace=True)
         return categories_dataframe
+
+    def get_data_for_completer(self, column):
+        column_values = []
+        column_results = self.select(columns=[column,])
+        while column_results.next():
+            column_values.append(str(column_results.value(column)))
+        return column_values
 
 
 

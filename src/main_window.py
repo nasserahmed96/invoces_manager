@@ -5,6 +5,7 @@ from employees_manager import EmployeesManager
 from system_properties import SystemProperties
 from customers_manager import CustomersManager
 from products_main_window import ProductsMainWindow
+from src.category_manager import CategoriesManager
 from src.brands_manager import BrandsManager
 from dashboard import Dashboard
 
@@ -25,6 +26,9 @@ class AppMainWindow(QMainWindow):
             lambda: self.change_widget(self.widgets["system_properties"]["index"]))
         self.ui.customers_btn.clicked.connect(
             lambda: self.change_widget(self.widgets["customers_manager"]["index"]))
+        self.ui.categories_btn.clicked.connect(
+            lambda: self.change_widget(self.widgets["categories_manager"]["index"])
+        )
         self.ui.brands_btn.clicked.connect(
             lambda: self.change_widget(self.widgets["brands_manager"]["index"]))
         self.ui.products_btn.clicked.connect(
@@ -40,10 +44,12 @@ class AppMainWindow(QMainWindow):
                 {"index": 2, "widget": EmployeesManager()},
             "customers_manager":
                 {"index": 3, "widget": CustomersManager()},
+            'categories_manager':
+                {"index": 4, "widget": CategoriesManager()},
             "brands_manager":
-                {"index": 4, "widget": BrandsManager()},
+                {"index": 5, "widget": BrandsManager()},
             "products_main_window":
-                {"index": 5, "widget": ProductsMainWindow()}
+                {"index": 6, "widget": ProductsMainWindow()}
         }
         [self.ui.window_content.insertWidget(self.widgets[widget]["index"], self.widgets[widget]["widget"]) for widget in self.widgets]
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>createBrandWindow</class>
- <widget class="QMainWindow" name="createBrandWindow">
+ <class>createCategoryWindow</class>
+ <widget class="QMainWindow" name="createCategoryWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Create brand</string>
+   <string>Create category</string>
   </property>
   <widget class="QWidget" name="fieldsLayout">
    <layout class="QVBoxLayout" name="verticalLayout">
