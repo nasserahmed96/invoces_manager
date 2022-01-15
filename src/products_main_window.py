@@ -5,6 +5,7 @@ from category_manager import CategoriesManager
 from products_manager import ProductsManager
 from src.helpers import open_window
 
+
 class ProductsMainWindow(QMainWindow):
     def __init__(self):
         super(ProductsMainWindow, self).__init__()
