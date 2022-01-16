@@ -92,6 +92,7 @@ class DataAccessObject(object):
         :return: query (with data) if it's successful None instead
         """
         print('Query string: ', query_str)
+        print('Place holders: ', placeholders)
         query = self.execute_query(query_str, place_holders=placeholders)
         return query if self.debug_query(query) else None
 
@@ -146,5 +147,14 @@ class DataAccessObject(object):
             placeholder[condition['column'].replace('.', '_')] = condition['value']
         return placeholder
 
-
-
+    def get_data_for_completer(self, column):
+        """
+        Get a list of strings contains the data for the column
+        :param column:
+        :return: QListString contains the data in 'column'
+        """
+        column_values_result = self.select(columns=[column,])
+        column_values = []
+        while column_values_result.next():
+            column_values.append(str(column_values_result.value(column)))
+        return column_values

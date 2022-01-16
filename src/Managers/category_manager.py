@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QCompleter
-from src.base_manager import BaseManager
+from src.Managers.base_manager import BaseManager
 from python_forms.categoryManager_GUI import Ui_categories_manager
 from src.Models.CategoriesTableModel import CategoriesTableModel
 from src.create_category import CreateCategory

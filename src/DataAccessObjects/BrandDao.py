@@ -76,17 +76,7 @@ class BrandDao(DataAccessObject):
                                 axis=1, inplace=True)
         return brands_dataframe
 
-    def get_data_for_completer(self, column):
-        """
-        Get a list of strings contains the data for the column
-        :param column:
-        :return: QListString contains the data in 'column'
-        """
-        column_values_result = self.select(columns=[column,])
-        column_values = []
-        while column_values_result.next():
-            column_values.append(str(column_values_result.value(column)))
-        return column_values
+
 
 
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'forms/products_manager.ui'
+# Form implementation generated from reading ui file 'forms/products_manager_GUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -15,23 +15,7 @@ class Ui_productsManagerWindow(object):
     def setupUi(self, productsManagerWindow):
         productsManagerWindow.setObjectName("productsManagerWindow")
         productsManagerWindow.resize(1160, 893)
-        productsManagerWindow.setStyleSheet("QPushButton{\n"
-"  background-color: #D9D9D9;\n"
-"  border: none;\n"
-"  color: black;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  border: 1px solid black;\n"
-"\n"
-"}\n"
-"\n"
-"QComboBox{\n"
-"  background-color: #D9D9D9;\n"
-"  border: 1px solid black;\n"
-"  color: black;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"}R")
+        productsManagerWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(productsManagerWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)

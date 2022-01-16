@@ -97,15 +97,15 @@ class ProductDao(DataAccessObject):
         }]
         return self.delete(conditions=conditions)
 
-    def get_products_dataframe(self, conditions=''):
+    def get_products_dataframe(self, conditions='', placeholders=''):
         products = []
         products_query = """
         SELECT products.*, 
         category.name AS category_name, brand.name AS brand_name 
         FROM products LEFT JOIN categories AS category ON products.category=category.id 
-        LEFT JOIN brands AS brand ON products.brand=brand.id;
+        LEFT JOIN brands AS brand ON products.brand=brand.id 
         """ + conditions
-        products_result = self.execute_select_query(query_str=products_query)
+        products_result = self.execute_select_query(query_str=products_query, placeholders=placeholders)
         while products_result.next():
             products.append(self.fill_product(products_result).serialize_product())
         products_dataframe = pd.DataFrame(products)
@@ -113,3 +113,4 @@ class ProductDao(DataAccessObject):
         products_dataframe.rename({products_dataframe.columns[i]: new_columns[i] for i in range(len(new_columns))},
                                   axis=1, inplace=True)
         return products_dataframe
+

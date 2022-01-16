@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QCompleter
 from python_forms.brandsManager_GUI import Ui_brands_manager
-from src.base_manager import BaseManager
+from src.Managers.base_manager import BaseManager
 from src.Models.BrandsTableModel import BrandsTableModel
 from src.create_brand import CreateBrand
 

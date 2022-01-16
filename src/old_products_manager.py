@@ -1,11 +1,11 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QCompleter, QMessageBox
+from PyQt5.QtWidgets import QApplication, QCompleter, QMessageBox
 from PyQt5.QtCore import Qt
 from python_forms.productsManager_GUI import Ui_productsManagerWindow
 from src.create_product import CreateProduct
 from src.helpers import get_table_data, open_window, initialize_combo_box
 
-from src.base_manager import BaseManager
+from src.Managers.base_manager import BaseManager
 
 
 class ProductsManager(BaseManager):

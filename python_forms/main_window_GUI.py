@@ -14,13 +14,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1300, 800)
+        MainWindow.resize(1920, 1080)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QtCore.QSize(1300, 800))
+        MainWindow.setMinimumSize(QtCore.QSize(1920, 1080))
         MainWindow.setMaximumSize(QtCore.QSize(10000, 10000))
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("QMainWindow{\n"
@@ -33,7 +33,22 @@ class Ui_MainWindow(object):
 " {\n"
 "            background-color: white;\n"
 "            margin: 0\n"
-" }")
+" }\n"
+"QPushButton{\n"
+"  background-color: #838383;\n"
+"  border: none;\n"
+"  color: black;\n"
+"  text-align: center;\n"
+"  text-decoration: none;\n"
+"}\n"
+"QPushButton:hover{\n"
+"background-color: #585858;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"background-color:rgb(54, 54, 54);\n"
+"}\n"
+"\n"
+"")
         MainWindow.setDockOptions(QtWidgets.QMainWindow.AllowNestedDocks|QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -263,7 +278,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.window_content)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1300, 19))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1920, 19))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
