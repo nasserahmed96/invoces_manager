@@ -14,32 +14,11 @@
    <string>Categories main window</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton{
-  background-color: #D9D9D9;
-  border: none;
-  color: black;
-  text-align: center;
-  text-decoration: none;
-  margin: 4px 2px;
-}</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">QPushButton{
-  background-color: #838383;
-  border: none;
-  color: black;
-  text-align: center;
-  text-decoration: none;
-}
-QPushButton:hover{
-background-color: #585858;
-}
-QPushButton:pressed{
-background-color:rgb(54, 54, 54);
-}
-
-</string>
+    <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>

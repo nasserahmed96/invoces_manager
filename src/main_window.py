@@ -1,12 +1,12 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from python_forms.main_window_GUI import Ui_MainWindow
-from employees_manager import EmployeesManager
+from src.Managers.employees_manager import EmployeesManager
 from system_properties import SystemProperties
-from customers_manager import CustomersManager
-from products_main_window import ProductsMainWindow
-from src.category_manager import CategoriesManager
-from src.brands_manager import BrandsManager
+from src.Managers.customers_manager import CustomersManager
+from src.Managers.products_manager import ProductsManager
+from src.Managers.category_manager import CategoriesManager
+from src.Managers.brands_manager import BrandsManager
 from dashboard import Dashboard
 
 
@@ -32,7 +32,7 @@ class AppMainWindow(QMainWindow):
         self.ui.brands_btn.clicked.connect(
             lambda: self.change_widget(self.widgets["brands_manager"]["index"]))
         self.ui.products_btn.clicked.connect(
-            lambda: self.change_widget(self.widgets["products_main_window"]["index"]))
+            lambda: self.change_widget(self.widgets["products_manager"]["index"]))
 
     def initializePages(self):
         self.widgets = {
@@ -48,8 +48,8 @@ class AppMainWindow(QMainWindow):
                 {"index": 4, "widget": CategoriesManager()},
             "brands_manager":
                 {"index": 5, "widget": BrandsManager()},
-            "products_main_window":
-                {"index": 6, "widget": ProductsMainWindow()}
+            "products_manager":
+                {"index": 6, "widget": ProductsManager()}
         }
         [self.ui.window_content.insertWidget(self.widgets[widget]["index"], self.widgets[widget]["widget"]) for widget in self.widgets]
 

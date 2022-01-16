@@ -53,18 +53,23 @@ class ProductDaoTesting(object):
         self.product_dao.update_product(product_id=3, values=values)
         self.print_product(self.product_dao.get_product_by_name('Nasser ORM New'))
 
+    def test_get_products_dataframe(self):
+        print(self.product_dao.get_products_dataframe())
+
     def test_delete_product(self):
         print('Deleting product')
         self.product_dao.delete_product(product_id=1)
         print('Deleted') if not self.product_dao.get_product_by_id(1) else self.print_product(self.product_dao.get_product_by_id(1))
 
     def run_tests(self):
-        self.test_create_product()
+        """self.test_create_product()
         self.test_get_all_products()
         self.test_get_product_by_id()
         self.test_get_product_by_name()
         self.test_update_product()
-        self.test_delete_product()
+        self.test_delete_product()"""
+        self.test_get_products_dataframe()
+
 
 if __name__ == '__main__':
     products_dao = ProductDaoTesting()

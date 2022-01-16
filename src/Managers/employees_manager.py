@@ -2,7 +2,7 @@ import sys
 import re
 from PyQt5.QtWidgets import QApplication
 from python_forms.employees_manager_GUI import Ui_employee_management_window
-from src.base_manager import BaseManager
+from src.Managers.base_manager import BaseManager
 from src.Models.EmployeesTableModel import EmployeesTableModel
 from create_employee import CreateEmployee
 from src.EmployeeProfile import EmployeeProfile

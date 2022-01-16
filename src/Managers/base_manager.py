@@ -54,3 +54,6 @@ class BaseManager(QMainWindow):
 
     def setup_table(self):
         pass
+
+    def search(self):
+        pass

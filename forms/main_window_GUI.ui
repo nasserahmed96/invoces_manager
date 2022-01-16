@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1300</width>
-    <height>800</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1300</width>
-    <height>800</height>
+    <width>1920</width>
+    <height>1080</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -45,7 +45,31 @@ background: #D8D7F5;
  {
             background-color: white;
 			margin: 0
- }</string>
+ }
+QPushButton{
+  background-color: #838383;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+QPushButton:hover{
+background-color: #585858;
+}
+QPushButton:pressed{
+background-color:rgb(54, 54, 54);
+}
+
+QHeaderView{
+background-color: #838383;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+
+
+</string>
   </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
@@ -530,7 +554,7 @@ background: #D8D7F5;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1300</width>
+     <width>1920</width>
      <height>19</height>
     </rect>
    </property>

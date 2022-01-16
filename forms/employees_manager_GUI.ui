@@ -36,21 +36,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">QPushButton{
-  background-color: #838383;
-  border: none;
-  color: black;
-  text-align: center;
-  text-decoration: none;
-}
-QPushButton:hover{
-background-color: #585858;
-}
-QPushButton:pressed{
-background-color:rgb(54, 54, 54);
-}
-
-</string>
+    <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -159,7 +145,6 @@ background-color:rgb(54, 54, 54);
         <property name="font">
          <font>
           <pointsize>15</pointsize>
-          <weight>75</weight>
           <bold>true</bold>
           <underline>false</underline>
           <strikeout>false</strikeout>
@@ -281,7 +266,6 @@ background-color:rgb(54, 54, 54);
         <property name="font">
          <font>
           <pointsize>15</pointsize>
-          <weight>75</weight>
           <bold>true</bold>
           <underline>false</underline>
           <strikeout>false</strikeout>
@@ -298,7 +282,11 @@ background-color:rgb(54, 54, 54);
      </layout>
     </item>
     <item>
-     <widget class="QTableView" name="employees_table_view"/>
+     <widget class="QTableView" name="employees_table_view">
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -308,7 +296,7 @@ background-color:rgb(54, 54, 54);
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

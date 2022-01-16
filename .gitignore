@@ -6,6 +6,8 @@ src/DataObjects/__pycache__/*
 src/DataAccessObjects/__pycache__/*
 src/Reports/myapp/__pycache__/
 src/Reports/myapp/__pycache__/*
+src/Managers/__pycacahe__/
+src/Managers/__pycache__/*
 Assets/Database/*.db
 src/DataAccessObjectsTesting/*.log
 src/DataAccessObjectsTesting/*.db

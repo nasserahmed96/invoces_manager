@@ -24,21 +24,7 @@ class Ui_customers_management_window(object):
         customers_management_window.setMaximumSize(QtCore.QSize(1000000, 1000000))
         customers_management_window.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(customers_management_window)
-        self.centralwidget.setStyleSheet("QPushButton{\n"
-"  background-color: #838383;\n"
-"  border: none;\n"
-"  color: black;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"}\n"
-"QPushButton:hover{\n"
-"background-color: #585858;\n"
-"}\n"
-"QPushButton:pressed{\n"
-"background-color:rgb(54, 54, 54);\n"
-"}\n"
-"\n"
-"")
+        self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -125,7 +111,11 @@ class Ui_customers_management_window(object):
         self.horizontalLayout_2.addWidget(self.add_customer_btn)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.customers_table_view = QtWidgets.QTableView(self.centralwidget)
+        self.customers_table_view.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.customers_table_view.setObjectName("customers_table_view")
+        self.customers_table_view.horizontalHeader().setCascadingSectionResizes(True)
+        self.customers_table_view.horizontalHeader().setDefaultSectionSize(120)
+        self.customers_table_view.horizontalHeader().setStretchLastSection(True)
         self.verticalLayout.addWidget(self.customers_table_view)
         customers_management_window.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(customers_management_window)
