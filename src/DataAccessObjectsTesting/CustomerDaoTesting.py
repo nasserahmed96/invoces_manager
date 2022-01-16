@@ -60,13 +60,17 @@ class CustomerDaoTesting:
         print('Deleting customer')
         self.customer_dao.delete_customer(customer_id=1)
 
+    def test_get_dataframe(self):
+        print(self.customer_dao.get_customers_dataframe())
+
 
 
     def run_tests(self):
-        #self.test_create_customer()
+        """self.test_create_customer()
         self.test_update_customer()
         self.test_get_all_customers()
-        self.test_delete_customer()
+        self.test_delete_customer()"""
+        self.test_get_dataframe()
 
 
 if __name__ == '__main__':

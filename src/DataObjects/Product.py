@@ -72,3 +72,13 @@ class Product(object):
     def set_status(self, status):
         self.status = status
 
+    def serialize_product(self, full_data=False):
+        """
+        For the current time, we will only put the category name as we don't have the case where we will have to
+        use all the products data
+        :return:
+        """
+        self.__dict__['category'] = self.category.name if not full_data else self.category.serialize_category()
+        self.__dict__['brand'] = self.brand.name if not full_data else self.brand.serialize_brand()
+        return self.__dict__
+

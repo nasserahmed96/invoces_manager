@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1300</width>
-    <height>890</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1300</width>
-    <height>800</height>
+    <width>1920</width>
+    <height>1080</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -45,25 +45,37 @@ background: #D8D7F5;
  {
             background-color: white;
 			margin: 0
- }</string>
+ }
+QPushButton{
+  background-color: #838383;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+QPushButton:hover{
+background-color: #585858;
+}
+QPushButton:pressed{
+background-color:rgb(54, 54, 54);
+}
+
+QHeaderView{
+background-color: #838383;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+
+
+</string>
   </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
-     <number>0</number>
-    </property>
     <item>
      <widget class="QWidget" name="SideBar" native="true">
       <property name="sizePolicy">
@@ -85,8 +97,7 @@ background: #D8D7F5;
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-        QPushButton
+       <string notr="true">  QPushButton
             { 
                 background-color: #FFFFFF;
                 color: rgb(190, 190, 190);
@@ -105,9 +116,6 @@ background: #D8D7F5;
             }</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetMinimumSize</enum>
-       </property>
        <item>
         <widget class="QPushButton" name="invoices_btn">
          <property name="sizePolicy">
@@ -124,7 +132,6 @@ background: #D8D7F5;
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
            <underline>false</underline>
            <strikeout>false</strikeout>
@@ -168,7 +175,6 @@ background: #D8D7F5;
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
            <underline>false</underline>
            <strikeout>false</strikeout>
@@ -211,7 +217,6 @@ background: #D8D7F5;
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
            <underline>false</underline>
            <strikeout>false</strikeout>
@@ -239,6 +244,48 @@ background: #D8D7F5;
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="brands_btn">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <bold>true</bold>
+           <underline>false</underline>
+           <strikeout>false</strikeout>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Manage products, and get reports about the,</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Brands</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/icons/Icons/brands_icon.png</normaloff>:/icons/Icons/brands_icon.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="categories_btn">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -254,7 +301,6 @@ background: #D8D7F5;
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
            <underline>false</underline>
            <strikeout>false</strikeout>
@@ -306,7 +352,6 @@ background: #D8D7F5;
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
            <underline>false</underline>
            <strikeout>false</strikeout>
@@ -355,7 +400,6 @@ background: #D8D7F5;
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
            <underline>false</underline>
            <strikeout>false</strikeout>
@@ -404,7 +448,6 @@ background: #D8D7F5;
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
            <underline>false</underline>
            <strikeout>false</strikeout>
@@ -453,7 +496,6 @@ background: #D8D7F5;
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
            <underline>false</underline>
            <strikeout>false</strikeout>
@@ -501,7 +543,7 @@ background: #D8D7F5;
        <number>0</number>
       </property>
       <widget class="QWidget" name="page"/>
-      <widget class="QWidget" name=""/>
+      <widget class="QWidget" name="widget"/>
       <widget class="QWidget" name="page_2"/>
      </widget>
     </item>
@@ -512,8 +554,8 @@ background: #D8D7F5;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1300</width>
-     <height>20</height>
+     <width>1920</width>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'forms/category_manager.ui'
+# Form implementation generated from reading ui file 'forms/category_manager_GUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -15,30 +15,9 @@ class Ui_categories_manager(object):
     def setupUi(self, categories_manager):
         categories_manager.setObjectName("categories_manager")
         categories_manager.resize(1019, 813)
-        categories_manager.setStyleSheet("QPushButton{\n"
-"  background-color: #D9D9D9;\n"
-"  border: none;\n"
-"  color: black;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  margin: 4px 2px;\n"
-"}")
+        categories_manager.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(categories_manager)
-        self.centralwidget.setStyleSheet("QPushButton{\n"
-"  background-color: #838383;\n"
-"  border: none;\n"
-"  color: black;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"}\n"
-"QPushButton:hover{\n"
-"background-color: #585858;\n"
-"}\n"
-"QPushButton:pressed{\n"
-"background-color:rgb(54, 54, 54);\n"
-"}\n"
-"\n"
-"")
+        self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")

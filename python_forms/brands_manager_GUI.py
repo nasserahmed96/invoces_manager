@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'forms/category_manager.ui'
+# Form implementation generated from reading ui file 'forms/brands_manager_GUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -11,34 +11,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_categories_manager(object):
-    def setupUi(self, categories_manager):
-        categories_manager.setObjectName("categories_manager")
-        categories_manager.resize(1019, 813)
-        categories_manager.setStyleSheet("QPushButton{\n"
-"  background-color: #D9D9D9;\n"
-"  border: none;\n"
-"  color: black;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"  margin: 4px 2px;\n"
-"}")
-        self.centralwidget = QtWidgets.QWidget(categories_manager)
-        self.centralwidget.setStyleSheet("QPushButton{\n"
-"  background-color: #838383;\n"
-"  border: none;\n"
-"  color: black;\n"
-"  text-align: center;\n"
-"  text-decoration: none;\n"
-"}\n"
-"QPushButton:hover{\n"
-"background-color: #585858;\n"
-"}\n"
-"QPushButton:pressed{\n"
-"background-color:rgb(54, 54, 54);\n"
-"}\n"
-"\n"
-"")
+class Ui_brands_manager(object):
+    def setupUi(self, brands_manager):
+        brands_manager.setObjectName("brands_manager")
+        brands_manager.resize(1019, 813)
+        brands_manager.setStyleSheet("")
+        self.centralwidget = QtWidgets.QWidget(brands_manager)
+        self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -97,29 +76,29 @@ class Ui_categories_manager(object):
         self.create_btn.setObjectName("create_btn")
         self.horizontalLayout_4.addWidget(self.create_btn)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
-        self.category_table_view = QtWidgets.QTableView(self.centralwidget)
-        self.category_table_view.setObjectName("category_table_view")
-        self.category_table_view.horizontalHeader().setCascadingSectionResizes(True)
-        self.category_table_view.horizontalHeader().setSortIndicatorShown(True)
-        self.category_table_view.horizontalHeader().setStretchLastSection(True)
-        self.verticalLayout.addWidget(self.category_table_view)
-        categories_manager.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(categories_manager)
+        self.brand_table_view = QtWidgets.QTableView(self.centralwidget)
+        self.brand_table_view.setObjectName("brand_table_view")
+        self.brand_table_view.horizontalHeader().setCascadingSectionResizes(True)
+        self.brand_table_view.horizontalHeader().setSortIndicatorShown(True)
+        self.brand_table_view.horizontalHeader().setStretchLastSection(True)
+        self.verticalLayout.addWidget(self.brand_table_view)
+        brands_manager.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(brands_manager)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1019, 19))
         self.menubar.setObjectName("menubar")
-        categories_manager.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(categories_manager)
+        brands_manager.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(brands_manager)
         self.statusbar.setObjectName("statusbar")
-        categories_manager.setStatusBar(self.statusbar)
+        brands_manager.setStatusBar(self.statusbar)
 
-        self.retranslateUi(categories_manager)
-        QtCore.QMetaObject.connectSlotsByName(categories_manager)
+        self.retranslateUi(brands_manager)
+        QtCore.QMetaObject.connectSlotsByName(brands_manager)
 
-    def retranslateUi(self, categories_manager):
+    def retranslateUi(self, brands_manager):
         _translate = QtCore.QCoreApplication.translate
-        categories_manager.setWindowTitle(_translate("categories_manager", "Categories main window"))
-        self.name_line_edit.setToolTip(_translate("categories_manager", "Enter brand name"))
-        self.name_line_edit.setPlaceholderText(_translate("categories_manager", "Enter category name"))
-        self.search_btn.setText(_translate("categories_manager", "Search"))
-        self.create_btn.setText(_translate("categories_manager", "Add new Category"))
+        brands_manager.setWindowTitle(_translate("brands_manager", "MainWindow"))
+        self.name_line_edit.setToolTip(_translate("brands_manager", "Enter brand name"))
+        self.name_line_edit.setPlaceholderText(_translate("brands_manager", "Enter brand name"))
+        self.search_btn.setText(_translate("brands_manager", "Search"))
+        self.create_btn.setText(_translate("brands_manager", "Add new brand"))
 import resources_rc

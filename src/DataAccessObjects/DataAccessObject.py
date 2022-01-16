@@ -71,17 +71,15 @@ class DataAccessObject(object):
         :param condition: A condition object contains the required parameters for the condition
         :return: A condition string to be used in SQL query
         """
-        return f"{condition['logic']} {condition['column']} {condition['operator']} :{condition['column']} {condition['options']}"
+        return f"{condition['logic']} {condition['column']} {condition['operator']} :{condition['column'].replace('.', '_')} {condition['options']}"
 
     def select(self, columns=None, conditions=None):
         """
         Get the columns with conditions and values
         :param columns: The columns we want to retrieve from the table, if not presented use '*' instead
-        :param placeholders: Values to the conditions to be retrieved
         :param conditions: Dictionary contains the required conditions on the query
         :return: QSqlQuery object after execution
         """
-        print(f'Build conditions: {self.build_conditions(conditions) if conditions else ""}')
         query_str = f"""SELECT {" ".join(columns) if columns else '*'} FROM {self.table_name} {self.build_conditions(conditions) if conditions else ''}"""
         placeholders = self.extract_values_from_conditions(conditions) if conditions else None
         return self.execute_select_query(query_str, placeholders)
@@ -93,6 +91,8 @@ class DataAccessObject(object):
         :param placeholders: A dictionary contains the values for the palceholders in the query string
         :return: query (with data) if it's successful None instead
         """
+        print('Query string: ', query_str)
+        print('Place holders: ', placeholders)
         query = self.execute_query(query_str, place_holders=placeholders)
         return query if self.debug_query(query) else None
 
@@ -126,7 +126,6 @@ class DataAccessObject(object):
         for value in values.keys():
             placeholders[value] = values[value]
         placeholders.update(self.extract_values_from_conditions(conditions))
-        print('Placeholders: ', placeholders)
         self.execute_edit_query(query_str, placeholders)
 
     def build_update_string(self, columns):
@@ -145,8 +144,17 @@ class DataAccessObject(object):
     def extract_values_from_conditions(self, conditions):
         placeholder = dict()
         for condition in conditions:
-            placeholder[condition['column']] = condition['value']
+            placeholder[condition['column'].replace('.', '_')] = condition['value']
         return placeholder
 
-
-
+    def get_data_for_completer(self, column):
+        """
+        Get a list of strings contains the data for the column
+        :param column:
+        :return: QListString contains the data in 'column'
+        """
+        column_values_result = self.select(columns=[column,])
+        column_values = []
+        while column_values_result.next():
+            column_values.append(str(column_values_result.value(column)))
+        return column_values

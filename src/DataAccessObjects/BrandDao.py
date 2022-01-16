@@ -1,6 +1,7 @@
 from PyQt5.QtSql import QSqlQuery
 from src.DataObjects.Brand import Brand
 from src.DataAccessObjects.DataAccessObject import DataAccessObject
+import pandas as pd
 
 
 class BrandDao(DataAccessObject):
@@ -61,6 +62,26 @@ class BrandDao(DataAccessObject):
                                      name=query_result.value("name"),
                                      description=query_result.value("description")))
         return self.brands
+
+    def get_brands_dataframe(self, conditions=''):
+        brands = []
+        brands_result = self.select(conditions=conditions)
+        while brands_result.next():
+            brands.append(Brand(id=brands_result.value('id'),
+                                name=brands_result.value('name'),
+                                description=brands_result.value('description')).serialize_brand())
+        brands_dataframe = pd.DataFrame(brands)
+        new_columns = [column.replace('_', ' ').capitalize() for column in brands_dataframe.columns]
+        brands_dataframe.rename({brands_dataframe.columns[i]: new_columns[i] for i in range(len(new_columns))},
+                                axis=1, inplace=True)
+        return brands_dataframe
+
+
+
+
+
+
+
 
 
 

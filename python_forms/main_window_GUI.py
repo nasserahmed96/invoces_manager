@@ -14,13 +14,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1300, 890)
+        MainWindow.resize(1920, 1080)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QtCore.QSize(1300, 800))
+        MainWindow.setMinimumSize(QtCore.QSize(1920, 1080))
         MainWindow.setMaximumSize(QtCore.QSize(10000, 10000))
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("QMainWindow{\n"
@@ -33,12 +33,35 @@ class Ui_MainWindow(object):
 " {\n"
 "            background-color: white;\n"
 "            margin: 0\n"
-" }")
+" }\n"
+"QPushButton{\n"
+"  background-color: #838383;\n"
+"  border: none;\n"
+"  color: black;\n"
+"  text-align: center;\n"
+"  text-decoration: none;\n"
+"}\n"
+"QPushButton:hover{\n"
+"background-color: #585858;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"background-color:rgb(54, 54, 54);\n"
+"}\n"
+"\n"
+"QHeaderView{\n"
+"background-color: #838383;\n"
+"  border: none;\n"
+"  color: black;\n"
+"  text-align: center;\n"
+"  text-decoration: none;\n"
+"}\n"
+"\n"
+"\n"
+"")
         MainWindow.setDockOptions(QtWidgets.QMainWindow.AllowNestedDocks|QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.SideBar = QtWidgets.QWidget(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -48,8 +71,7 @@ class Ui_MainWindow(object):
         self.SideBar.setSizePolicy(sizePolicy)
         self.SideBar.setMinimumSize(QtCore.QSize(200, 0))
         self.SideBar.setMaximumSize(QtCore.QSize(250, 16777215))
-        self.SideBar.setStyleSheet("\n"
-"        QPushButton\n"
+        self.SideBar.setStyleSheet("  QPushButton\n"
 "            { \n"
 "                background-color: #FFFFFF;\n"
 "                color: rgb(190, 190, 190);\n"
@@ -68,7 +90,6 @@ class Ui_MainWindow(object):
 "            }")
         self.SideBar.setObjectName("SideBar")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.SideBar)
-        self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetMinimumSize)
         self.verticalLayout.setObjectName("verticalLayout")
         self.invoices_btn = QtWidgets.QPushButton(self.SideBar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -80,7 +101,6 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setBold(True)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         font.setKerning(False)
         self.invoices_btn.setFont(font)
@@ -101,7 +121,6 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setBold(True)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         self.offers_btn.setFont(font)
         self.offers_btn.setStyleSheet("")
@@ -121,7 +140,6 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setBold(True)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         self.products_btn.setFont(font)
         self.products_btn.setStyleSheet("")
@@ -131,6 +149,25 @@ class Ui_MainWindow(object):
         self.products_btn.setIconSize(QtCore.QSize(24, 24))
         self.products_btn.setObjectName("products_btn")
         self.verticalLayout.addWidget(self.products_btn)
+        self.brands_btn = QtWidgets.QPushButton(self.SideBar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.brands_btn.sizePolicy().hasHeightForWidth())
+        self.brands_btn.setSizePolicy(sizePolicy)
+        self.brands_btn.setMinimumSize(QtCore.QSize(200, 40))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setUnderline(False)
+        font.setStrikeOut(False)
+        self.brands_btn.setFont(font)
+        self.brands_btn.setStyleSheet("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/icons/Icons/brands_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.brands_btn.setIcon(icon3)
+        self.brands_btn.setIconSize(QtCore.QSize(24, 24))
+        self.brands_btn.setObjectName("brands_btn")
+        self.verticalLayout.addWidget(self.brands_btn)
         self.categories_btn = QtWidgets.QPushButton(self.SideBar)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -141,14 +178,13 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setBold(True)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         self.categories_btn.setFont(font)
         self.categories_btn.setAutoFillBackground(False)
         self.categories_btn.setStyleSheet("")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/icons/Icons/product-icon-17.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.categories_btn.setIcon(icon3)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/icons/Icons/product-icon-17.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.categories_btn.setIcon(icon4)
         self.categories_btn.setIconSize(QtCore.QSize(24, 24))
         self.categories_btn.setObjectName("categories_btn")
         self.verticalLayout.addWidget(self.categories_btn)
@@ -163,13 +199,12 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setBold(True)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         self.calender_btn.setFont(font)
         self.calender_btn.setStyleSheet("")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/icons/Icons/pngegg.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.calender_btn.setIcon(icon4)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/icons/Icons/pngegg.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.calender_btn.setIcon(icon5)
         self.calender_btn.setIconSize(QtCore.QSize(24, 24))
         self.calender_btn.setObjectName("calender_btn")
         self.verticalLayout.addWidget(self.calender_btn)
@@ -184,13 +219,12 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setBold(True)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         self.customers_btn.setFont(font)
         self.customers_btn.setStyleSheet("")
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/icons/Icons/people-ge35158f96_640.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.customers_btn.setIcon(icon5)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/icons/Icons/people-ge35158f96_640.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.customers_btn.setIcon(icon6)
         self.customers_btn.setIconSize(QtCore.QSize(24, 24))
         self.customers_btn.setObjectName("customers_btn")
         self.verticalLayout.addWidget(self.customers_btn)
@@ -205,13 +239,12 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setBold(True)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         self.employees_btn.setFont(font)
         self.employees_btn.setStyleSheet("")
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(":/icons/Icons/group+people+management+business+work+employees-1320567856204506545_32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.employees_btn.setIcon(icon6)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(":/icons/Icons/group+people+management+business+work+employees-1320567856204506545_32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.employees_btn.setIcon(icon7)
         self.employees_btn.setIconSize(QtCore.QSize(24, 24))
         self.employees_btn.setObjectName("employees_btn")
         self.verticalLayout.addWidget(self.employees_btn)
@@ -226,14 +259,13 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setBold(True)
         font.setUnderline(False)
-        font.setWeight(75)
         font.setStrikeOut(False)
         self.system_properties_btn.setFont(font)
         self.system_properties_btn.setAutoFillBackground(False)
         self.system_properties_btn.setStyleSheet("")
-        icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap(":/icons/Icons/gear_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.system_properties_btn.setIcon(icon7)
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap(":/icons/Icons/gear_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.system_properties_btn.setIcon(icon8)
         self.system_properties_btn.setIconSize(QtCore.QSize(24, 24))
         self.system_properties_btn.setFlat(False)
         self.system_properties_btn.setObjectName("system_properties_btn")
@@ -255,7 +287,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.window_content)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1300, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1920, 19))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -288,6 +320,8 @@ class Ui_MainWindow(object):
         self.offers_btn.setText(_translate("MainWindow", "Proposals"))
         self.products_btn.setToolTip(_translate("MainWindow", "Manage products, and get reports about the,"))
         self.products_btn.setText(_translate("MainWindow", "Products"))
+        self.brands_btn.setToolTip(_translate("MainWindow", "Manage products, and get reports about the,"))
+        self.brands_btn.setText(_translate("MainWindow", "Brands"))
         self.categories_btn.setToolTip(_translate("MainWindow", "Manage categories"))
         self.categories_btn.setText(_translate("MainWindow", "Categories"))
         self.calender_btn.setToolTip(_translate("MainWindow", "Check calnder for appointment"))

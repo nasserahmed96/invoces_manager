@@ -1,8 +1,8 @@
-from PyQt5.QtWidgets import QWidget, QStyleOption, QStyle, QLabel
+from PyQt5.QtWidgets import QWidget, QStyleOption, QStyle
 from PyQt5.QtGui import QPainter
 from python_forms.sidebar_GUI import Ui_SideBar
 from helpers import open_window
-from employees_manager import EmployeesManager
+from src.Managers.employees_manager import EmployeesManager
 from system_properties import SystemProperties
 from products_main_window import ProductsMainWindow
 

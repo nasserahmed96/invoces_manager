@@ -17,3 +17,12 @@ class Customer(object):
 
     def __str__(self):
         return self.user
+
+    def serialize_customer(self):
+        user_dict = self.__dict__.pop('user').__dict__
+        """
+        Remove user ID to revent conflicting between customer ID and user ID
+        """
+        user_dict.pop('id')
+        self.__dict__.update(user_dict)
+        return self.__dict__

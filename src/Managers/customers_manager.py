@@ -2,30 +2,30 @@ import sys
 import re
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtSql import QSqlQuery
-from python_forms.employees_manager_GUI import Ui_employee_management_window
-from src.Models.EmployeesTableModel import EmployeesTableModel
+from python_forms.customers_manager_GUI import Ui_customers_management_window
+from src.Models.CustomersTableModel import CustomerTableModel
 
-from create_employee import CreateEmployee
+from create_customer import CreateCustomer
 from src.EmployeeProfile import EmployeeProfile
 
 
-class EmployeesManager(QMainWindow):
+class CustomersManager(QMainWindow):
     def __init__(self):
-        super(EmployeesManager, self).__init__()
-        self.ui = Ui_employee_management_window()
+        super(CustomersManager, self).__init__()
+        self.ui = Ui_customers_management_window()
         self.ui.setupUi(self)
-        self.model = EmployeesTableModel()
+        self.model = CustomerTableModel()
         self.connect_signals_slots()
         self.initializeUI()
 
     def connect_signals_slots(self):
-        self.ui.add_employee_btn.clicked.connect(self.open_create_employee)
-        self.ui.search_employee_btn.clicked.connect(self.search)
-        self.ui.employees_table_view.doubleClicked.connect(self.open_employee_profile)
+        self.ui.add_customer_btn.clicked.connect(self.open_create_customer)
+        self.ui.search_customer_btn.clicked.connect(self.search)
+        self.ui.customers_table_view.doubleClicked.connect(self.open_employee_profile)
 
     def open_employee_profile(self):
         print('Employee profile')
-        idx = self.ui.employees_table_view.selectionModel().selectedIndexes()[0]
+        idx = self.ui.customers_table_view.selectionModel().selectedIndexes()[0]
         print('Employee ID ', self.model.index(idx.row(), 0).data())
         employee_profile = EmployeeProfile(self.model.index(idx.row(), 0).data(), self)
         employee_profile.show()
@@ -42,11 +42,14 @@ class EmployeesManager(QMainWindow):
     def search(self):
         conditions = []
         conditions.append(
-            self.build_condition('employees.username', self.ui.username_line_edit.text(), '=', 'COLLATE NOCASE', 'AND')
-        ) if self.ui.username_line_edit.text() != '' else None
+            self.build_condition('users.email', self.ui.email_line_edit.text(), '=', 'COLLATE NOCASE', 'AND')
+        ) if self.ui.email_line_edit.text() != '' else None
+        conditions.append(
+            self.build_condition('users.phone_number', self.ui.phone_number_line_edit.text(), '=', 'COLLATE NOCASE', 'AND')
+        ) if self.ui.phone_number_line_edit.text() != '' else None
         conditions.extend(self.search_by_name()) if self.ui.name_line_edit.text() != '' else None
         self.model.select(re.sub('(AND|OR)$', '', self.build_conditions(conditions)), self.extract_values_from_conditions(conditions))
-        self.ui.employees_table_view.update()
+        self.ui.customers_table_view.update()
 
     def build_condition(self, column, value, operator, options='', logic=''):
         return {
@@ -100,19 +103,19 @@ class EmployeesManager(QMainWindow):
         query.exec_(query_str)
         return query
 
-    def open_create_employee(self):
-        create_employee = CreateEmployee(self)
-        create_employee.show()
+    def open_create_customer(self):
+        create_customer = CreateCustomer(self)
+        create_customer.show()
 
     def initializeUI(self):
         self.setupTable()
 
     def setupTable(self):
-        self.ui.employees_table_view.setModel(self.model)
+        self.ui.customers_table_view.setModel(self.model)
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = EmployeesManager()
+    window = CustomersManager()
     window.show()
     sys.exit(app.exec_())

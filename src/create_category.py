@@ -1,111 +1,92 @@
-import re
-import sys
-from PyQt5.QtWidgets import QWidget, QMainWindow, QApplication, QMessageBox
-from PyQt5.QtSql import QSqlQuery, QSqlDatabase
-from python_forms.createCategory_GUI import Ui_createCategoryFrom
+import sys,re
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QMessageBox, QLineEdit)
+from PyQt5.QtCore import QRegExp
+from PyQt5.QtGui import QRegExpValidator
+from python_forms.createCategory_GUI import Ui_createCategoryWindow
+from src.Models.CategoriesTableModel import CategoriesTableModel
+from src.DataObjects.Brand import Brand
 
 
-class CreateCategory(QWidget):
-    def __init__(self):
-        super(CreateCategory, self).__init__()
-        self.ui = Ui_createCategoryFrom()
+class CreateCategory(QMainWindow):
+    def __init__(self, parent=None):
+        super(CreateCategory, self).__init__(parent)
+        self.ui = Ui_createCategoryWindow()
         self.ui.setupUi(self)
-        self.initialize_db()
-        self.initializeUI()
+        self.model = CategoriesTableModel()
+        self.initialize_ui()
+        self.connect_signals_slots()
         self.validation_widgets = []
         self.validation_error = False
-
-    def initializeUI(self):
-            self.ui.save_btn.clicked.connect(self.save)
-
-    def initialize_db(self):
-        database = QSqlDatabase.addDatabase("QSQLITE")
-        database.setDatabaseName("")
-        if not database.open():
-            print("Unable to open database")
-            sys.exit(1)
-
-    def clear_validation_errors(self):
+        #The sum of the valid inputs, add 1 to current_valid_inputs and compare it against this number
+        self.valid_inputs = 2
+        self.current_valid_inputs = 0
         """
-        Clear all validation colors and tool tips that appeared, mainly it clears the password fields, but if widgets
-        are provided it clears it too.
+        Fill the combo box from get_table_data items which returns a dictionary 
+        that its keys act like text for combo box
+        """
+        self.initialize_validators()
+        self.assign_validators()
+        self.assign_mandatory_fields()
+        self.assign_unique_fields()
+        self.assign_labels()
+        self.show()
+
+    def initialize_ui(self):
+        self.ui.nameLineEdit.set_database_attributes('name', 'categories')
+        self.ui.descriptionLineEdit.set_database_attributes('description', 'categories')
+
+    def connect_signals_slots(self):
+        self.ui.save_btn.clicked.connect(self.save)
+
+    def assign_labels(self):
+        self.ui.nameLineEdit.set_label(self.ui.nameLabelInfo)
+        self.ui.descriptionLineEdit.set_label(self.ui.descriptionLabelInfo)
+
+    def assign_validators(self):
+        self.ui.nameLineEdit.setValidator(self.arabic_text_validator)
+        self.ui.descriptionLineEdit.setValidator(self.arabic_text_validator)
+
+    def initialize_validators(self):
+        """
+        Setup the validators with the required regex
         :return:
         """
-        self.ui.name_line_edit.setStyleSheet("")
-        self.ui.description_line_edit.setStyleSheet("")
-        for widget in self.validation_widgets:
-            widget["widget"].setStyleSheet("")
+        arabic_text_regex = QRegExp("^[a-zA-Z\u0621-\u064A\u0660-\u0669\s\,\:\;0-9]+$")
+        arabic_name_regex = QRegExp("^[a-zA-Z]+$|^[\u0621-\u064A]+$")
+        text_regex = QRegExp("^[a-zA-Z\s\,\:\;0-9]+$")
+        phone_number_regex = QRegExp("^(\+[0-9]{1,3}){0,1}([0-9]{11,13})$")
+        email_regex = QRegExp("^[a-zA-Z\.1-9\-\\\/\_]+@[A-Za-z]+(\.[a-zA-Z]+)*[a-zA-Z]$")
+        self.arabic_text_validator = QRegExpValidator(arabic_text_regex)
+        self.arabic_name_validator = QRegExpValidator(arabic_name_regex)
+        self.text_validator = QRegExpValidator(text_regex)
+        self.phone_number_validator = QRegExpValidator(phone_number_regex)
+        self.email_validator = QRegExpValidator(email_regex)
+
+    def assign_mandatory_fields(self):
+        self.ui.nameLineEdit.set_mandatory(True)
+
+    def assign_unique_fields(self):
+        self.ui.nameLineEdit.set_unique(True)
+
+    def prepare_category(self):
+        columns = dict()
+        for widget in self.ui.fieldsLayout.parentWidget().findChildren(QLineEdit):
+            columns[widget.column_name] = widget.text()
+        return Brand(name=columns['name'], description=columns['description'])
 
     def save(self):
-        query = QSqlQuery()
-        query.prepare("""
-                    INSERT INTO categories(name, description) 
-                    VALUES (?, ?)
-                    """)
-        self.append_validation_widget(self.validation_widgets, self.ui.name_line_edit, "text")
-        self.append_validation_widget(self.validation_widgets, self.ui.description_line_edit, "text")
-        self.validate_form(self.validation_widgets)
-
-        if self.validation_error:
-            for widget in self.validation_widgets:
-                if "error" in widget:
-                    QMessageBox.information(self, "validation error", widget["error"])
+        """
+        """
+        self.current_valid_inputs = sum([widget.is_valid() for widget in
+                                         self.ui.fieldsLayout.parentWidget().findChildren(QLineEdit)])
+        if not self.valid_inputs == self.current_valid_inputs:
+            QMessageBox.information(self, 'Validation error', 'Please enter valid fields')
             return
+        QMessageBox.information(self, 'Error while saving', 'An error has occurred while saving to DB') if not self.model.save(self.prepare_category()) else QMessageBox.information(self, 'Save', 'The item has been saved')
 
-        self.bind_values(query)
-        query.exec_()
-        errors = query.lastError().number()
-        if errors and errors != -1:
-            print("Errors: ", errors)
-            QMessageBox.information(self, "Failed", self.error_human_mapping(errors))
-        else:
-            QMessageBox.information(self, "Success", "Saved new category successfully")
 
-    def error_human_mapping(self, number: int):
-        """
-        Get the human readable form of the error number to be viewed to the user
-        :param number:
-        :return: A string containing a user friendly message error
-        """
-        try:
-            errors = dict()
-            errors["19"] = "This entity already exists in the database"
-            return errors[str(number)]
-        except KeyError:
-            QMessageBox.information(self, "Database error", "Unknown error")
-            return None
-
-    def bind_values(self, query):
-        query.addBindValue(self.ui.name_line_edit.text())
-        query.addBindValue(self.ui.description_line_edit.text())
-
-    def append_validation_widget(self, widgets: list, widget: QWidget, regex: str):
-        """
-        Append the widget I want to validate, along side with required regex
-        :param widgets:
-        :param widget:
-        :param regex:
-        :return: It doesn't return any thing, it just fills the widgets list
-        """
-        widget_dict = dict()
-        widget_dict["widget"] = widget
-        widget_dict["regex"] = regex
-        widgets.append(widget_dict)
-
-    def validate_form(self, widgets: list):
-        """
-        Validate with widgets in widgets list
-        :param widgets: A list of dictionaries
-        :return: If an error detected, it sets the validation_error flag to True, the user should check for this flag
-        after calling the function
-        """
-        regex = dict()
-        regex["text"] = re.compile("^[a-zA-Z\u0621-\u064A\u0660-\u0669\s\,\:\;0-9]*$")
-        regex["name"] = re.compile("^[a-zA-Z\u0621-\u064A]+[a-zA-Z\u0621-\u064A]$")
-        regex["phone_number"] = re.compile("^(\+[0-9]{1,3}){0,1}[0-9]{1,13}")
-        regex["email"] = re.compile("[a-zA-Z\.1-9\-\\\/\_]*@[A-Za-z]+(\.[a-zA-Z]+)*[a-zA-Z]$")
-        for widget in widgets:
-            if not regex[widget["regex"]].match(widget["widget"].text()):
-                widget["error"] = "Not a valid: " + widget["widget"].placeholderText()
-                widget["widget"].setStyleSheet("""background-color: red;""")
-                self.validation_error = True
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = CreateCategory()
+    window.show()
+    sys.exit(app.exec_())
