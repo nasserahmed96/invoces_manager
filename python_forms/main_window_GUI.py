@@ -48,6 +48,15 @@ class Ui_MainWindow(object):
 "background-color:rgb(54, 54, 54);\n"
 "}\n"
 "\n"
+"QHeaderView{\n"
+"background-color: #838383;\n"
+"  border: none;\n"
+"  color: black;\n"
+"  text-align: center;\n"
+"  text-decoration: none;\n"
+"}\n"
+"\n"
+"\n"
 "")
         MainWindow.setDockOptions(QtWidgets.QMainWindow.AllowNestedDocks|QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks)
         self.centralwidget = QtWidgets.QWidget(MainWindow)

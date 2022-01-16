@@ -1,7 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from python_forms.createInvoice_GUI import Ui_create_invoice_window
-from search_results import SearchResults
 from helpers import open_window
 
 

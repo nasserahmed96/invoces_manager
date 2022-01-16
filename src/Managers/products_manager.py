@@ -1,7 +1,7 @@
 import re
 import sys
-from PyQt5.QtWidgets import QApplication, QMessageBox
-from python_forms.productsManager_GUI import Ui_productsManagerWindow
+from PyQt5.QtWidgets import QApplication, QMessageBox, QHeaderView
+from python_forms.products_manager_GUI import Ui_productsManagerWindow
 from src.create_product import CreateProduct
 from src.helpers import get_table_data, open_window, initialize_combo_box
 from src.Managers.base_manager import BaseManager
@@ -10,11 +10,10 @@ from src.Models.ProductsTableModel import ProductsTableModel
 
 class ProductsManager(BaseManager):
     def __init__(self, parent=None):
+        self.initialize_required_data()
         super(ProductsManager, self).__init__(parent=parent,
                                               ui=Ui_productsManagerWindow(),
                                               model=ProductsTableModel())
-        self.initialize_required_data()
-        self.initializeUI()
         self.connect_signals_slots()
         self.search_critieria = []
 
@@ -50,10 +49,13 @@ class ProductsManager(BaseManager):
         self.model.select(re.sub('(AND|OR)$', '', self.build_conditions(conditions)), self.extract_values_from_conditions(conditions))
         self.ui.products_table_view.update()
 
-    def initializeUI(self):
+    def initialize_ui(self):
+        super(ProductsManager, self).initialize_ui()
         self.initialize_combo_boxes()
         self.ui.bar_code_line_edit.setCompleter(self.model.get_completer('products.barcode'))
         self.ui.product_name_line_edit.setCompleter(self.model.get_completer('products.name'))
+
+    def setup_table(self):
         self.ui.products_table_view.setModel(self.model)
 
     def connect_signals_slots(self):

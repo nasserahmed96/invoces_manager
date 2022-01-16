@@ -36,21 +36,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">QPushButton{
-  background-color: #838383;
-  border: none;
-  color: black;
-  text-align: center;
-  text-decoration: none;
-}
-QPushButton:hover{
-background-color: #585858;
-}
-QPushButton:pressed{
-background-color:rgb(54, 54, 54);
-}
-
-</string>
+    <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -265,7 +251,20 @@ background-color:rgb(54, 54, 54);
      </layout>
     </item>
     <item>
-     <widget class="QTableView" name="customers_table_view"/>
+     <widget class="QTableView" name="customers_table_view">
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>120</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+     </widget>
     </item>
    </layout>
   </widget>

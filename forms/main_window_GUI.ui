@@ -60,6 +60,15 @@ QPushButton:pressed{
 background-color:rgb(54, 54, 54);
 }
 
+QHeaderView{
+background-color: #838383;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}
+
+
 </string>
   </property>
   <property name="dockOptions">

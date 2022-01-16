@@ -282,7 +282,11 @@
      </layout>
     </item>
     <item>
-     <widget class="QTableView" name="employees_table_view"/>
+     <widget class="QTableView" name="employees_table_view">
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+     </widget>
     </item>
    </layout>
   </widget>
