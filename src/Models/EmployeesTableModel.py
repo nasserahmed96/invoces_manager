@@ -11,12 +11,7 @@ class EmployeesTableModel(QAbstractTableModel):
         self.columns = self.employees_dataframe.columns
         self.logger = Logger()
 
-    def select(self, conditions=None, placeholders=None):
-        self.employees_dataframe = self.employee_dao.get_employees_dataframe(conditions=conditions, placeholders=placeholders)
-        self.dataChanged.emit(QModelIndex(), QModelIndex())
 
-    def get_employees(self):
-        return self.employees_dataframe
 
     def rowCount(self, parent=QModelIndex()):
         return self.get_employees().shape[0]
@@ -38,5 +33,12 @@ class EmployeesTableModel(QAbstractTableModel):
 
     def save(self, employee):
         return self.employee_dao.create_employee(employee.pop('employee'), employee.pop('password'))
+
+    def select(self, conditions=None, placeholders=None):
+        self.employees_dataframe = self.employee_dao.get_employees_dataframe(conditions=conditions, placeholders=placeholders)
+        self.dataChanged.emit(QModelIndex(), QModelIndex())
+
+    def get_employees(self):
+        return self.employees_dataframe
 
 

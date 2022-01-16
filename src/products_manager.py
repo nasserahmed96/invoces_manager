@@ -1,16 +1,16 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QCompleter, QMessageBox
 from PyQt5.QtCore import Qt
-from PyQt5.QtSql import QSqlQuery, QSqlDatabase, QSqlRelationalTableModel, QSqlRelationalDelegate, QSqlRelation
 from python_forms.productsManager_GUI import Ui_productsManagerWindow
 from src.create_product import CreateProduct
 from src.helpers import get_table_data, open_window, initialize_combo_box
-from DatabaseManager import DatabaseManager
+
+from src.base_manager import BaseManager
 
 
-class ProductsManager(QMainWindow):
-    def __init__(self):
-        super(ProductsManager, self).__init__()
+class ProductsManager(BaseManager):
+    def __init__(self, parent=None):
+        super(ProductsManager, self).__init__(parent=parent)
         self.ui = Ui_productsManagerWindow()
         self.ui.setupUi(self)
         self.initialize_db()
@@ -26,34 +26,6 @@ class ProductsManager(QMainWindow):
         self.products_brands = get_table_data('brands')
         self.status = get_table_data('status')
 
-    def setUpModel(self):
-        self.model = QSqlRelationalTableModel()
-        self.model.setEditStrategy(QSqlRelationalTableModel.OnManualSubmit)
-        self.model.setTable('products')
-        self.model.setJoinMode(QSqlRelationalTableModel.LeftJoin)
-        self.model.setRelation(self.model.fieldIndex('category'), QSqlRelation('categories', 'id', 'name'))
-        self.model.setRelation(self.model.fieldIndex('brand'), QSqlRelation('brands', 'id', 'name'))
-        self.model.setRelation(self.model.fieldIndex('status'), QSqlRelation('status', 'id', 'name'))
-        columns = {'id': 'ID',
-                   'name': 'Name',
-                   'description': 'Description',
-                   'category': 'Category',
-                   'barcode': 'Barcode',
-                   'price': 'Price',
-                   'status': 'Status',
-                   'quantity': 'Quantity',
-                   'brand': 'Brand'}
-        [self.model.setHeaderData(self.model.fieldIndex(field_name), Qt.Horizontal, columns[field_name]) for field_name
-         in columns.keys()]
-        self.model.select()
-
-    def setUpTableView(self):
-        self.ui.products_table_view.setModel(self.model)
-        self.ui.products_table_view.setSelectionMode(4)
-        self.ui.products_table_view.setSelectionBehavior(1)
-        self.ui.products_table_view.setSortingEnabled(True)
-        delegate = QSqlRelationalDelegate(self.ui.products_table_view)
-        self.ui.products_table_view.setItemDelegate(delegate)
 
     def build_conditions(self):
         """
@@ -113,13 +85,6 @@ class ProductsManager(QMainWindow):
         """
         return f"{condition['column']} {condition['operator']} {condition['value']} {condition['options']}"
 
-    def execute_select_query(self, query_str):
-        query = QSqlQuery()
-        query.exec_(query_str)
-        return query
-
-    def initialize_db(self):
-        database = DatabaseManager()
 
     def initializeUI(self):
         self.initialize_combo_boxes()

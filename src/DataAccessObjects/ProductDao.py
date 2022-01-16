@@ -2,6 +2,9 @@ from src.DataAccessObjects.DataAccessObject import DataAccessObject
 from src.DataAccessObjects.CategoryDao import CategoryDao
 from src.DataAccessObjects.BrandDao import BrandDao
 from src.DataObjects.Product import Product
+from src.DataObjects.Category import Category
+from src.DataObjects.Brand import Brand
+import pandas as pd
 
 class ProductDao(DataAccessObject):
     def __init__(self):
@@ -54,8 +57,12 @@ class ProductDao(DataAccessObject):
                        quantity=query_result.value('quantity'),
                        barcode=query_result.value('barcode'),
                        notes=query_result.value('notes'),
-                       category=self.category_dao.get_category_by_id(query_result.value('id')),
-                       brand=self.brand_dao.get_brand_by_id(query_result.value('id')),
+                       category=Category(id=query_result.value('category_id'),
+                                         name=query_result.value('category_name'),
+                                         description=query_result.value('category_description')),
+                       brand=Brand(id=query_result.value('brand_id'),
+                                   name=query_result.value('brand_name'),
+                                   description=query_result.value('brand_description')),
                        status=query_result.value('status')
                        )
 
@@ -90,5 +97,19 @@ class ProductDao(DataAccessObject):
         }]
         return self.delete(conditions=conditions)
 
-
-
+    def get_products_dataframe(self, conditions=''):
+        products = []
+        products_query = """
+        SELECT products.*, 
+        category.name AS category_name, brand.name AS brand_name 
+        FROM products LEFT JOIN categories AS category ON products.category=category.id 
+        LEFT JOIN brands AS brand ON products.brand=brand.id;
+        """ + conditions
+        products_result = self.execute_select_query(query_str=products_query)
+        while products_result.next():
+            products.append(self.fill_product(products_result).serialize_product())
+        products_dataframe = pd.DataFrame(products)
+        new_columns = [column.replace('_', ' ').capitalize() for column in products_dataframe.columns]
+        products_dataframe.rename({products_dataframe.columns[i]: new_columns[i] for i in range(len(new_columns))},
+                                  axis=1, inplace=True)
+        return products_dataframe

@@ -6,12 +6,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1154</width>
+    <width>1160</width>
     <height>893</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton{
+  background-color: #D9D9D9;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid black;
+
+}
+
+QComboBox{
+  background-color: #D9D9D9;
+  border: 1px solid black;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+}R</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -24,13 +43,43 @@
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QLabel" name="name_label">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Product name</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="product_name_line_edit"/>
+         <widget class="QLineEdit" name="product_name_line_edit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>125</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -38,13 +87,43 @@
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
          <widget class="QLabel" name="bar_code_label">
+          <property name="minimumSize">
+           <size>
+            <width>60</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>56</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Barcode</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="bar_code_line_edit"/>
+         <widget class="QLineEdit" name="bar_code_line_edit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>125</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -52,13 +131,43 @@
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QLabel" name="category_label">
+          <property name="minimumSize">
+           <size>
+            <width>120</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Product category</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="product_category_cb"/>
+         <widget class="QComboBox" name="product_category_cb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>125</width>
+            <height>50</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -66,37 +175,67 @@
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QLabel" name="brand_label">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Product brand</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="product_brand_cb"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLabel" name="status_label">
-          <property name="text">
-           <string>Product status</string>
+         <widget class="QComboBox" name="product_brand_cb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
          </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="product_status_cb"/>
         </item>
        </layout>
       </item>
       <item>
        <widget class="QPushButton" name="search_btn">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>230</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>230</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+          <bold>true</bold>
+          <underline>false</underline>
+          <strikeout>false</strikeout>
+         </font>
         </property>
         <property name="text">
          <string>Search</string>
@@ -115,9 +254,12 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>50</width>
           <height>20</height>
          </size>
         </property>
@@ -126,39 +268,33 @@
       <item>
        <widget class="QPushButton" name="create_btn">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>230</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>230</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+          <bold>true</bold>
+          <underline>false</underline>
+          <strikeout>false</strikeout>
+         </font>
         </property>
         <property name="text">
          <string>Create new product</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="delete_btn">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Delete</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="edit_btn">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Edit</string>
         </property>
        </widget>
       </item>
@@ -178,8 +314,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1154</width>
-     <height>20</height>
+     <width>1160</width>
+     <height>19</height>
     </rect>
    </property>
   </widget>
