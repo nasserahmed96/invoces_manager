@@ -1,4 +1,5 @@
 import sys
+from decimal import Decimal
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAbstractItemView
 from python_forms.create_invoice_GUI import Ui_createInvoiceWindow
 from src.Managers.products_manager import ProductsManager
@@ -10,7 +11,6 @@ class CreateInvoice(ProductsManager):
         self.invoice_products_model = InvoiceProductsTableModel()
         super(CreateInvoice, self).__init__(ui=Ui_createInvoiceWindow())
 
-
     def setup_table(self):
         super(CreateInvoice, self).setup_table()
         self.ui.invoice_products_table_view.setModel(self.invoice_products_model)
@@ -20,11 +20,21 @@ class CreateInvoice(ProductsManager):
         super(CreateInvoice, self).connect_signals_slots()
         self.ui.products_table_view.doubleClicked.connect(self.add_product_to_invoice)
         self.invoice_products_model.dataChanged.connect(self.data_changed)
+        self.ui.accessories_spin_box.valueChanged.connect(self.calculate_total_invoice)
+        self.ui.above_installation_spin_box.valueChanged.connect(self.calculate_total_invoice)
+        self.ui.invoice_products_table_view.doubleClicked.connect(self.remove_product_from_invoice)
+
+    def remove_product_from_invoice(self, index):
+        if not index.column() == self.invoice_products_model.get_column_index('Quantity'):
+            self.invoice_products_model.removeRow(index.row())
 
     def data_changed(self):
-        print('Datachanged')
-        self.ui.invoice_products_table_view.update()
-        print(self.invoice_products_model.get_invoice_products())
+        self.calculate_total_invoice()
+
+    def calculate_total_invoice(self):
+        total = Decimal(self.invoice_products_model.get_invoice_products()['Total'].astype('float64').sum()).quantize(Decimal('.00'))
+        total += Decimal(self.ui.accessories_spin_box.value()) + Decimal(self.ui.above_installation_spin_box.value())
+        self.ui.invoice_total_label.setText(str(total.quantize(Decimal('.00'))))
 
     def add_product_to_invoice(self, selected_index):
         product_row = dict()

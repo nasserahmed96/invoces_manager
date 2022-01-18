@@ -1,11 +1,14 @@
+from decimal import Decimal
 import pandas as pd
 from PyQt5.QtCore import QAbstractTableModel, QModelIndex, Qt, QVariant
+
 
 class InvoiceProductsTableModel(QAbstractTableModel):
     def __init__(self):
         super(InvoiceProductsTableModel, self).__init__()
         self.columns = ['Id', 'Name', 'Description', 'Price', 'Quantity', 'Total']
         self.invoice_products_dataframe = pd.DataFrame({column_name: [] for column_name in self.columns})
+        self.invoice_products_dataframe.set_index(['Id'])
         self.columns_dict = {self.columns[index]: index for index in range(len(self.columns))}
 
     def rowCount(self, parent=QModelIndex()):
@@ -25,20 +28,11 @@ class InvoiceProductsTableModel(QAbstractTableModel):
 
     def setData(self, index, value, role=Qt.EditRole):
         if index.isValid() and role == Qt.EditRole:
-
             self.edit_product(index.row(), index.column(), value)
             self.update_total_price_for_product(index.row())
             self.dataChanged.emit(index, index)
             return True
         return False
-
-    def edit_product(self, row, column, value):
-        self.invoice_products_dataframe.iloc[row, column] = value
-
-    def update_total_price_for_product(self, row):
-        self.invoice_products_dataframe.iloc[row, self.get_column_index('Total')] = \
-            float(self.invoice_products_dataframe.iloc[row, self.get_column_index('Price')]) * self.invoice_products_dataframe.iloc[row, self.get_column_index('Quantity')]
-
 
     def flags(self, index):
         if not index.isValid():
@@ -47,14 +41,28 @@ class InvoiceProductsTableModel(QAbstractTableModel):
             return Qt.ItemIsEditable | Qt.ItemIsEnabled
         return QAbstractTableModel.flags(self, index) | Qt.ItemIsEnabled
 
+    def removeRow(self, row, parent=QModelIndex()):
+        self.beginRemoveRows(parent, row, row)
+        self.invoice_products_dataframe = self.invoice_products_dataframe.drop(index=row)
+        self.invoice_products_dataframe = self.invoice_products_dataframe.reset_index(drop=True)
+        self.dataChanged.emit(parent, parent)
+        self.endRemoveRows()
+
+    def edit_product(self, row, column, value):
+        self.invoice_products_dataframe.iloc[row, column] = value
+
+    def update_total_price_for_product(self, row):
+        self.invoice_products_dataframe.iloc[row, self.get_column_index('Total')] = \
+            (Decimal(self.invoice_products_dataframe.iloc[row, self.get_column_index('Price')]) * Decimal(self.invoice_products_dataframe.iloc[row, self.get_column_index('Quantity')])).quantize(Decimal('.00'))
+
+
+
     def append_product(self, product_row):
         num_rows = self.invoice_products_dataframe.shape[0]
         self.beginInsertRows(QModelIndex(), num_rows, num_rows)
         self.invoice_products_dataframe = self.invoice_products_dataframe.append(product_row, ignore_index=True)
         self.dataChanged.emit(QModelIndex(), QModelIndex())
         self.endInsertRows()
-
-
 
     def get_invoice_products(self):
         return self.invoice_products_dataframe
