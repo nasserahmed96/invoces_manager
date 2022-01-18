@@ -1,6 +1,7 @@
 import pandas as pd
 from PyQt5.QtCore import QAbstractTableModel, QModelIndex, Qt, QVariant
 
+
 class InvoiceProductsTableModel(QAbstractTableModel):
     def __init__(self):
         super(InvoiceProductsTableModel, self).__init__()
@@ -25,7 +26,6 @@ class InvoiceProductsTableModel(QAbstractTableModel):
 
     def setData(self, index, value, role=Qt.EditRole):
         if index.isValid() and role == Qt.EditRole:
-
             self.edit_product(index.row(), index.column(), value)
             self.update_total_price_for_product(index.row())
             self.dataChanged.emit(index, index)
@@ -38,7 +38,6 @@ class InvoiceProductsTableModel(QAbstractTableModel):
     def update_total_price_for_product(self, row):
         self.invoice_products_dataframe.iloc[row, self.get_column_index('Total')] = \
             float(self.invoice_products_dataframe.iloc[row, self.get_column_index('Price')]) * self.invoice_products_dataframe.iloc[row, self.get_column_index('Quantity')]
-
 
     def flags(self, index):
         if not index.isValid():
@@ -53,8 +52,6 @@ class InvoiceProductsTableModel(QAbstractTableModel):
         self.invoice_products_dataframe = self.invoice_products_dataframe.append(product_row, ignore_index=True)
         self.dataChanged.emit(QModelIndex(), QModelIndex())
         self.endInsertRows()
-
-
 
     def get_invoice_products(self):
         return self.invoice_products_dataframe
