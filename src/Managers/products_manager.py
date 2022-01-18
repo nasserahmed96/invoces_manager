@@ -9,18 +9,18 @@ from src.Models.ProductsTableModel import ProductsTableModel
 
 
 class ProductsManager(BaseManager):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, ui=Ui_productsManagerWindow()):
         self.initialize_required_data()
         super(ProductsManager, self).__init__(parent=parent,
-                                              ui=Ui_productsManagerWindow(),
+                                              ui=ui,
                                               model=ProductsTableModel())
-        self.connect_signals_slots()
         self.search_critieria = []
 
     def initialize_required_data(self):
         self.products_categories = get_table_data('categories')
         self.products_brands = get_table_data('brands')
         self.status = get_table_data('status')
+
 
     def search(self):
         conditions = []
@@ -59,7 +59,7 @@ class ProductsManager(BaseManager):
         self.ui.products_table_view.setModel(self.model)
 
     def connect_signals_slots(self):
-        self.ui.create_btn.clicked.connect(lambda: open_window(self, CreateProduct))
+        #self.ui.create_btn.clicked.connect(lambda: open_window(self, CreateProduct))
         self.ui.search_btn.clicked.connect(self.search)
         #self.model.dataChanged.connect(self.item_changed)
 

@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt, QAbstractTableModel, QModelIndex, QVariant
+from PyQt5.QtCore import Qt, QAbstractTableModel, QModelIndex, QVariant, QAbstractItemModel
 from PyQt5.QtWidgets import QCompleter
 from src.DataAccessObjects.ProductDao import ProductDao
 
@@ -9,6 +9,7 @@ class ProductsTableModel(QAbstractTableModel):
         self.products_dao = ProductDao()
         self.products_dataframe = self.products_dao.get_products_dataframe()
         self.columns = self.products_dataframe.columns
+        self.columns_dict = {self.columns[index]: index for index in range(len(self.columns))}
 
     def columnCount(self, parent=QModelIndex()):
         return len(self.columns)
@@ -40,6 +41,8 @@ class ProductsTableModel(QAbstractTableModel):
         completer.setCompletionMode(QCompleter.UnfilteredPopupCompletion)
         return completer
 
+    def get_column_index(self, column_name):
+        return self.columns_dict[column_name]
 
 
 

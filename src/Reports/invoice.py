@@ -1,4 +1,3 @@
-
 """
 NASSER
 Prototyping script for doctor's medical prescription, which written to prototype the invoice and simulate the behaviour of the buying process
@@ -11,6 +10,7 @@ import datetime
 from jinja2 import Environment, PackageLoader, select_autoescape
 import pdfkit
 import pandas as pd
+
 
 
 """
