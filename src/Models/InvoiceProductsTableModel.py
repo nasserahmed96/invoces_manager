@@ -55,7 +55,12 @@ class InvoiceProductsTableModel(QAbstractTableModel):
         self.invoice_products_dataframe.iloc[row, self.get_column_index('Total')] = \
             (Decimal(self.invoice_products_dataframe.iloc[row, self.get_column_index('Price')]) * Decimal(self.invoice_products_dataframe.iloc[row, self.get_column_index('Quantity')])).quantize(Decimal('.00'))
 
-
+    def flags(self, index):
+        if not index.isValid():
+            return Qt.ItemIsEnabled
+        if index.column() == self.get_column_index('Quantity'):
+            return Qt.ItemIsEditable | Qt.ItemIsEnabled
+        return QAbstractTableModel.flags(self, index) | Qt.ItemIsEnabled
 
     def append_product(self, product_row):
         num_rows = self.invoice_products_dataframe.shape[0]
