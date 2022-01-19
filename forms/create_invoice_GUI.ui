@@ -170,7 +170,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="add_employee_btn">
+            <widget class="QPushButton" name="append_employee_btn">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -184,7 +184,7 @@
               </size>
              </property>
              <property name="text">
-              <string>Add employee</string>
+              <string>Append</string>
              </property>
             </widget>
            </item>
@@ -263,7 +263,7 @@
               </size>
              </property>
              <property name="text">
-              <string>Add client</string>
+              <string>Create new client</string>
              </property>
             </widget>
            </item>
