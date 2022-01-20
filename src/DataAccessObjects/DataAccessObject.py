@@ -80,7 +80,8 @@ class DataAccessObject(object):
         :param conditions: Dictionary contains the required conditions on the query
         :return: QSqlQuery object after execution
         """
-        query_str = f"""SELECT {" ".join(columns) if columns else '*'} FROM {self.table_name} {self.build_conditions(conditions) if conditions else ''}"""
+        query_str = f"""SELECT {",".join(columns) if columns else '*'} FROM {self.table_name} {self.build_conditions(conditions) if conditions else ''}"""
+        print('Select QueryString: ', query_str)
         placeholders = self.extract_values_from_conditions(conditions) if conditions else None
         return self.execute_select_query(query_str, placeholders)
 

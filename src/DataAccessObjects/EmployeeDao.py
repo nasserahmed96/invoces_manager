@@ -50,16 +50,6 @@ class EmployeeDao(DataAccessObject):
                                    axis=1, inplace=True)
         return employees_dataframe
 
-
-
-
-    def get_employees_data(self):
-        query_str = """SELECT users.first_name AS first_name, users.middle_name AS middle_name
-        users.last_name AS last_name, users.phone_number AS phone_number, users.address AS address,
-        users.gender AS gender,
-        employees.id AS employee_id, 
-        employees.username FROM employees INNER JOIN users ON users.id=employee_id"""
-
     def get_employee_by_id(self, employee_id):
         query_str = """SELECT users.*, employees.id AS employee_id,employees.username FROM employees 
         INNER JOIN users ON users.id=employees.user_id"""
@@ -113,7 +103,3 @@ class EmployeeDao(DataAccessObject):
             'operator': '=',
             'options': ''
         }])
-
-    def get_objects_dataframe(self, objects):
-        objects_data_frame = pd.DataFrame()
-

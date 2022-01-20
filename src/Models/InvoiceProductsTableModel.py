@@ -8,7 +8,7 @@ class InvoiceProductsTableModel(QAbstractTableModel):
         super(InvoiceProductsTableModel, self).__init__()
         self.columns = ['Id', 'Name', 'Description', 'Price', 'Quantity', 'Total']
         self.invoice_products_dataframe = pd.DataFrame({column_name: [] for column_name in self.columns})
-        self.invoice_products_dataframe.set_index(['Id'])
+        self.invoice_products_dataframe.set_index('Id')
         self.columns_dict = {self.columns[index]: index for index in range(len(self.columns))}
 
     def rowCount(self, parent=QModelIndex()):
@@ -22,13 +22,14 @@ class InvoiceProductsTableModel(QAbstractTableModel):
             return self.columns[section]
 
     def data(self, index=QModelIndex(), role=Qt.DisplayRole):
-        if index.isValid() and role == Qt.DisplayRole or role == Qt.EditRole:
-            return str(self.get_invoice_products().iat[index.row(), index.column()])
+        if index.isValid() and (role == Qt.DisplayRole or role == Qt.EditRole) :
+            return str(self.get_invoice_products().iat[index.row(), index.column()]) if not \
+                index.column() == self.get_column_index('Id') else str(self.get_invoice_products().index[index.row()])
         return QVariant()
 
     def setData(self, index, value, role=Qt.EditRole):
         if index.isValid() and role == Qt.EditRole:
-            self.edit_product(index.row(), index.column(), value)
+            self.edit_product(index.row(), value)
             self.update_total_price_for_product(index.row())
             self.dataChanged.emit(index, index)
             return True
@@ -43,29 +44,28 @@ class InvoiceProductsTableModel(QAbstractTableModel):
 
     def removeRow(self, row, parent=QModelIndex()):
         self.beginRemoveRows(parent, row, row)
-        self.invoice_products_dataframe = self.invoice_products_dataframe.drop(index=row)
-        self.invoice_products_dataframe = self.invoice_products_dataframe.reset_index(drop=True)
+        self.invoice_products_dataframe = self.invoice_products_dataframe.drop(index=self.get_index_by_row(row))
         self.dataChanged.emit(parent, parent)
         self.endRemoveRows()
 
-    def edit_product(self, row, column, value):
-        self.invoice_products_dataframe.iloc[row, column] = value
+    def edit_product(self, row, value):
+        self.invoice_products_dataframe.loc[self.invoice_products_dataframe.index[row], 'Quantity'] = value
 
     def update_total_price_for_product(self, row):
-        self.invoice_products_dataframe.iloc[row, self.get_column_index('Total')] = \
-            (Decimal(self.invoice_products_dataframe.iloc[row, self.get_column_index('Price')]) * Decimal(self.invoice_products_dataframe.iloc[row, self.get_column_index('Quantity')])).quantize(Decimal('.00'))
+        self.invoice_products_dataframe.loc[self.get_index_by_row(row), 'Total'] = \
+            (Decimal(self.invoice_products_dataframe.loc[self.get_index_by_row(row), 'Price']) *
+             Decimal(self.invoice_products_dataframe.loc[self.get_index_by_row(row), 'Quantity'])).quantize(Decimal('.00'))
 
-    def flags(self, index):
-        if not index.isValid():
-            return Qt.ItemIsEnabled
-        if index.column() == self.get_column_index('Quantity'):
-            return Qt.ItemIsEditable | Qt.ItemIsEnabled
-        return QAbstractTableModel.flags(self, index) | Qt.ItemIsEnabled
+    def get_index_by_row(self, row):
+        return self.invoice_products_dataframe.index[row]
 
     def append_product(self, product_row):
-        num_rows = self.invoice_products_dataframe.shape[0]
-        self.beginInsertRows(QModelIndex(), num_rows, num_rows)
-        self.invoice_products_dataframe = self.invoice_products_dataframe.append(product_row, ignore_index=True)
+        num_row = self.invoice_products_dataframe.shape[0]
+        self.beginInsertRows(QModelIndex(), num_row, num_row)
+        temp_dataframe = pd.DataFrame([product_row])
+        temp_dataframe = temp_dataframe.set_index('Id')
+        self.invoice_products_dataframe = self.invoice_products_dataframe.append(temp_dataframe,
+                                                                                 verify_integrity=True)
         self.dataChanged.emit(QModelIndex(), QModelIndex())
         self.endInsertRows()
 

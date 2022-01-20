@@ -152,13 +152,13 @@
             <widget class="QDoubleSpinBox" name="employee_shares_sb">
              <property name="minimumSize">
               <size>
-               <width>0</width>
+               <width>120</width>
                <height>30</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>95</width>
+               <width>120</width>
                <height>30</height>
               </size>
              </property>
@@ -167,19 +167,28 @@
                <pointsize>15</pointsize>
               </font>
              </property>
+             <property name="suffix">
+              <string>%</string>
+             </property>
+             <property name="maximum">
+              <double>100.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>100.000000000000000</double>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="append_employee_btn">
              <property name="minimumSize">
               <size>
-               <width>0</width>
+               <width>120</width>
                <height>30</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>110</width>
+               <width>120</width>
                <height>30</height>
               </size>
              </property>
@@ -252,13 +261,13 @@
              </property>
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>120</width>
                <height>30</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>110</width>
+               <width>120</width>
                <height>30</height>
               </size>
              </property>
@@ -319,7 +328,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QTableView" name="employees_table_view"/>
+          <widget class="QTableView" name="employees_table_view">
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -472,29 +485,6 @@
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="product_category_cb">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>125</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-        <underline>false</underline>
-        <strikeout>false</strikeout>
-       </font>
-      </property>
-     </widget>
-    </item>
-    <item>
      <layout class="QHBoxLayout" name="search_products_layout">
       <property name="sizeConstraint">
        <enum>QLayout::SetMinimumSize</enum>
@@ -624,6 +614,29 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QComboBox" name="product_category_cb">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>125</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <underline>false</underline>
+          <strikeout>false</strikeout>
+         </font>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -889,15 +902,12 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="invoice_total_label">
-        <property name="font">
-         <font>
-          <pointsize>15</pointsize>
-          <bold>true</bold>
-         </font>
-        </property>
+       <widget class="QLineEdit" name="invoice_total_line_edit">
         <property name="text">
          <string>0</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
