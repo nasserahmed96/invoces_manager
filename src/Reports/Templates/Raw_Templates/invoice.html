@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Test company</title>
+	</head>
+<body>
+	<div class="container">
+		<div class="brand-section">
+			<div class="row">
+				<div class="col-6">
+					<h1 class="text-white">Company name</h1>
+					<img src="/home/nasser/Work/Clear_Vision/Clear_Vision_App/src/Reports/PngItem_3256236.png" class="logo">
+				</div>
+			</div>
+		</div>
+
+		<div class="body-section">
+			<p>Invoice serial: {{invoice_serial}}</p>
+			<br>
+			<p>Date: {{date}}</p>
+			<br>
+			<p>Customer: {{customer_name}}</p>
+		</div>
+
+		<div class="body-section">
+			<h1 class="heading">Invoice items</h1>
+			<br>
+			<table class="table-bordered">
+				<thead>
+					<tr>
+						<th class="w-20">Product</th>
+						<th>Description</th>
+						<th class="w-20">Price</th>
+						<th class="w-20">Qunatity</th>
+						<th class="w-20">Grandtotal</th>
+					</tr>
+				</thead>
+					<tbody>
+					{% for key, product in products.iterrows() %}
+						<tr>
+							<td>{{ product["Name"] }}</td>
+							<td>{{ product["Description"] }}</td>
+							<td>{{ product["Price"] }}</td>
+							<td>{{ product["Quantity"] }}</td>
+							<td>{{ product["Total"] }}</td>
+						</tr>
+					{% endfor %}
+						<tr>
+							<td colspan="3" class="text-left invoice_summary"><b>Grand total</b></td>
+							<td colspan="2"><b>{{invoice_total}}</b></td>
+						</tr>
+					</tbody>
+			</table>
+			<br>
+		</div>
+
+        </div>
+</body>
+</html>
+
+

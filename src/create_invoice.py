@@ -1,11 +1,14 @@
 import sys
+import os
 from decimal import Decimal
-from PyQt5.QtWidgets import QApplication, QMessageBox, QCompleter
+from PyQt5.QtCore import QDir, Qt
+from PyQt5.QtWidgets import QApplication, QMessageBox, QFileDialog
 from python_forms.create_invoice_GUI import Ui_createInvoiceWindow
 from src.Managers.products_manager import ProductsManager
 from src.SpinBoxDelegate import SpinBoxDelegate
 from src.Models.InvoiceProductsTableModel import InvoiceProductsTableModel
 from src.Models.EmployeesSharesTableModel import EmployeesSharesTableModel
+from src.Reports.invoice import InvoiceReport
 
 
 class CreateInvoice(ProductsManager):
@@ -36,12 +39,17 @@ class CreateInvoice(ProductsManager):
         self.ui.invoice_products_table_view.doubleClicked.connect(self.remove_product_from_invoice)
         self.ui.append_employee_btn.clicked.connect(self.append_employee_share)
         self.ui.invoice_total_line_edit.textChanged.connect(self.calculate_percentage_values)
+        self.ui.save_btn.clicked.connect(self.save_invoice)
 
     def calculate_percentage_values(self, new_total):
         self.employees_shares_model.calculate_percentage_values(new_total)
 
     def append_employee_share(self):
-        self.employees_shares_model.append_employee_share(self.get_employee_share())
+        try:
+            self.employees_shares_model.append_employee_share(self.get_employee_share())
+        except ValueError:
+            QMessageBox.information(self, 'Invalid data inserted', 'You are trying to insert a duplicated employee, '
+                                                                   'you can change the percentage of the employee')
 
     def get_employee_share(self):
         """
@@ -76,15 +84,35 @@ class CreateInvoice(ProductsManager):
         self.ui.invoice_total_line_edit.setText(str(total.quantize(Decimal('.00'))))
 
     def add_product_to_invoice(self, selected_index):
-        product_row = dict()
-        product_row['Id'] = self.model.index(selected_index.row(), self.model.get_column_index('Id')).data()
-        product_row['Name'] = self.model.index(selected_index.row(), self.model.get_column_index('Name')).data()
-        product_row['Description'] = self.model.index(selected_index.row(), self.model.get_column_index('Description')).data()
-        product_row['Price'] = self.model.index(selected_index.row(), self.model.get_column_index('Price')).data()
-        product_row['Quantity'] = int(1)
-        product_row['Total'] = product_row['Price'] * product_row['Quantity']
-        self.invoice_products_model.append_product(product_row)
+        try:
+            product_row = dict()
+            product_row['Id'] = self.model.index(selected_index.row(), self.model.get_column_index('Id')).data()
+            product_row['Name'] = self.model.index(selected_index.row(), self.model.get_column_index('Name')).data()
+            product_row['Description'] = self.model.index(selected_index.row(), self.model.get_column_index('Description')).data()
+            product_row['Price'] = self.model.index(selected_index.row(), self.model.get_column_index('Price')).data()
+            product_row['Quantity'] = int(1)
+            product_row['Total'] = product_row['Price'] * product_row['Quantity']
+            self.invoice_products_model.append_product(product_row)
+        except ValueError:
+            QMessageBox.information(self, 'Invalid data inserted', 'You are trying to insert a duplicated product, '
+                                                                   'you can increase the quantity of the product')
 
+    def save_invoice(self):
+        invoice_serial = str(self.ui.invoice_serial_number_line_edit.text())
+        default_file_name = os.path.join(QDir.homePath(), invoice_serial)
+        file_name, _ = QFileDialog.getSaveFileName(self, 'Save invoice', default_file_name, 'PDF files(*.pdf)',
+                                                   options=QFileDialog.Options())
+        print('File name: ', file_name)
+        invoice_report = InvoiceReport(invoice_path=file_name,
+                                       invoice_serial=invoice_serial,
+                                       customer_name='Nasser',
+                                       date=self.ui.invoice_date_edit.date().toString(Qt.ISODate),
+                                       products_dataframe=self.invoice_products_model.get_invoice_products(),
+                                       accessories=self.ui.accessories_spin_box.value(),
+                                       above_installation=self.ui.above_installation_spin_box.value(),
+                                       invoice_total=self.ui.invoice_total_line_edit.text())
+        invoice_report.render_report()
+        invoice_report.generate_report()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

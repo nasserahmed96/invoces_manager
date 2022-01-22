@@ -1,0 +1,132 @@
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+@media body{
+background-color: #F6F6F6;
+width: 21cm;
+height: 29.7cm;
+}
+
+h1, h2, h3, h4, h5, h6{
+	margin: 0;
+	padding: 0;
+}
+
+p{
+	margin: 0;
+	padding: 0;
+}
+
+.container{
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.brand-section{
+	background-color: #32a8cd;
+	padding: 10px 40px;
+	width:100%;
+}
+
+.logo{
+	width: 50%;
+}
+
+.row{
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.col-6{
+	width: 100%;
+	flex: 0 0 auto;
+}
+
+.text-white{
+	color: #fff;
+}
+
+.company-details{
+	float: right;
+	text-align: right;
+}
+
+.body-section{
+	padding: 16px;
+	border: 1px solid black;
+	width: fit-content;
+}
+
+.heading{
+	font-size: 20px;
+    margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.sub-heading{
+	color: #262626;
+	margin-bottom: 05px;
+}
+
+table{
+	background-color: #fff;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table thead tr{
+	border: 1px solid #111;
+	background-color: #f2f2f2;
+}
+
+table td{
+	vertical-align: middle !important;
+	text-align: center;
+}
+
+table th, table th{
+	padding-top: 08px;
+	padding-bottom: 08px;
+}
+
+.table-bordered{
+	box-shadow: 0px 0px 5px 0.5px gray;
+}
+
+.table-bordered td, .table-bordered th{
+	border: 1px solid #dee2e6;
+}
+
+.text-right{
+	text-align: right;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.w-20{
+	width: 20%;
+}
+
+.float-right{
+	float: right;
+}
+
+.logo{
+    width: 150px;
+}
+.arabic-text{
+    direction: rtl;
+    font-family: 'Droid Arabic Kufi', serif;font-size:100%;
+}
+.info-table{
+align: right;
+width: 50%;
+border: solid 1px;
+float: right;
+}
+
+.invoice_summary{
+    background-color: #a3a1a0;
+}

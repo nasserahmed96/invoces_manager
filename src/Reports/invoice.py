@@ -1,8 +1,3 @@
-"""
-NASSER
-Prototyping script for doctor's medical prescription, which written to prototype the invoice and simulate the behaviour of the buying process
-"""
-
 import sys
 import csv
 import random
@@ -10,52 +5,63 @@ import datetime
 from jinja2 import Environment, PackageLoader, select_autoescape
 import pdfkit
 import pandas as pd
+from src.Reports.report import Report
 
-
-
-"""
-Get a date string and return date in the requested format, default is yyyy-mm-dd
-"""
 
 """
 Invoice input data:
+-Formatted date
 -Invoice serial
 -Customer name
--Employee name
--Product name
--Product brand
--Product price
--Required quantity
+-List of products includes(Product name, Product description, Quantity, Total for each product)
+-Accessories
+-After installation expencies
 """
 
-"""
-Invoice calculated data:
--Date time
--Total price
--Total products
--Total quantity
-"""
 
-def get_date(date, date_format=None):
-    if not date_format:
-        date_format = "%Y-%m-%d"
-    return date.strftime(date_format)
+class InvoiceReport(Report):
+    def __init__(self, invoice_path, invoice_serial, customer_name, date, products_dataframe, accessories, above_installation, invoice_total):
+        super(InvoiceReport, self).__init__(template_name='invoice.html', output_path=invoice_path, stylesheet='style.css')
+        self.invoice_path = invoice_path
+        self.invoice_serial = invoice_serial
+        self.customer_name = customer_name
+        self.date = date
+        self.products_data = products_dataframe
+        self.accessories = accessories
+        self.above_installation = above_installation
+        self.invoice_total = invoice_total
+
+    def convert_dataframe_to_list(self, dataframe):
+        """
+        Convert the provided dataframe into a list of dictionaries
+        :return:
+        """
+        dics = []
+        for i in range(dataframe.shape[0]):
+            dic = dict()
+            for col in range(len(dataframe.columns)):
+                dic[dataframe.columns[col]] = dataframe.iat[i, col]
+            dics.append(dic)
+        return dics
+
+    def render_report(self):
+        self.save_rendered_page(self.get_template().render(customer_name=self.customer_name,
+                                                           products=self.products_data,
+                                                           invoice_serial=self.invoice_serial,
+                                                           date=self.date,
+                                                           accessories=self.accessories,
+                                                           above_installation=self.above_installation,
+                                                           invoice_total=self.invoice_total))
 
 
-def read_products(csv_file):
-    products = pd.read_csv(csv_file, usecols=["name", "brand", "price", "quantity"])
-    return products
 
 
-def generate_invoice(products):
+"""def generate_invoice(products):
     RENDERED_TEMPLATES_PATH = "myapp/rendered_templates/"
     env = Environment(loader=PackageLoader("myapp"), autoescape=select_autoescape())
     template = env.get_template("invoice.html")
     invoice = dict()
     now = datetime.datetime.now()
-    invoice["date"] = get_date(now.date())
-    invoice["time"] = now.strftime("%H:%M")
-    invoice["serial_no"] = random.randint(1000, 10000)
 
     parsed_products = []
     for key, product in products.iterrows():
@@ -67,16 +73,26 @@ def generate_invoice(products):
     with open(RENDERED_TEMPLATES_PATH + "invoice.html", "w") as output_file:
         output_file.write(rendered_page)
 
-    pdfkit.from_file(RENDERED_TEMPLATES_PATH + "invoice.html", "test_invoice_new.pdf")
+    pdfkit.from_file(RENDERED_TEMPLATES_PATH + "invoice.html", "test_invoice_new.pdf")"""
 
 
 if __name__ == "__main__":
-    program_name, *arguments = sys.argv
-    file_name = ""
-    if not arguments:
-        print("Please provide a valid file name")
-        file_name = input()
-    else:
-        file_name = arguments[0]
-    products = read_products(file_name)[0:5]
-    generate_invoice(products)
+    products = [{
+        'Name': 'Test invoice',
+        'Description': 'Test new report class',
+        'Price': 21.5,
+        'Quantity': 2,
+        'Total': 43
+    }]
+    products_dataframe = pd.DataFrame(products)
+    print(products_dataframe)
+    invoice = InvoiceReport(invoice_path='/home/nasser/refactor_invoice.pdf',
+                            invoice_serial='5648978972132',
+                            customer_name='Nasser',
+                            date='20/1/2022',
+                            products_dataframe=products_dataframe,
+                            accessories=54,
+                            above_installation=10,
+                            invoice_total=107)
+    invoice.render_report()
+    invoice.generate_report()
