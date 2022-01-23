@@ -1,12 +1,33 @@
+import copy
 class Invoice(object):
     def __init__(self, invoice_id=None, date=None, time=None, employee=None, customer=None,
-                 serial_number=None):
+                 serial_number=None, products=[], employees_shares=[]):
         self.invoice_id = invoice_id
         self.date = date
         self.time = time
         self.employee = employee
         self.customer = customer
         self.serial_number = serial_number
+        self.products = copy.deepcopy(products)
+        self.employees_shares = copy.deepcopy(employees_shares)
+
+    def get_employees_shares(self):
+        return self.employees_shares
+
+    def set_employees_shares(self, employees_shares:list):
+        self.employees_shares = copy.deepcopy(employees_shares)
+
+    def get_products(self):
+        return self.products
+
+    def set_products(self, products: list):
+        self.products = copy.deepcopy(self.products)
+
+    def append_product(self, product):
+        self.products.append(product)
+
+    def append_employee_share(self, employee_share: dict()):
+        self.employees_shares.append(employee_share)
 
     def get_invoice_id(self):
         return self.invoice_id
