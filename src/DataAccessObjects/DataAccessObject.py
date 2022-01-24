@@ -1,6 +1,8 @@
+from collections import ChainMap
 from PyQt5.QtSql import QSqlQuery
 from src.DatabaseManager import DatabaseManager
 from src.Logger import Logger
+import copy
 
 
 class DataAccessObject(object):
@@ -9,7 +11,7 @@ class DataAccessObject(object):
         self.table_name = table_name
         self.logger = Logger()
 
-    def debug_query(self, query:QSqlQuery):
+    def debug_query(self, query: QSqlQuery):
         """
         This function takes QSqlQuery object and pass it to the logger class
         :param query:
@@ -18,24 +20,49 @@ class DataAccessObject(object):
         self.logger.debug("Query errors: " + query.lastError().text())
         return True if not query.lastError().text() else False
 
-    def build_insert_query(self, cols):
+    def build_insert_query(self, cols, table_name=''):
         """
         Takes a list of strings that represents the columns in the INSERT query, and place it in VALUES with
-        :col_name, the substitution of the real value happens in bind_values function
+        :param table_name: An optional string indicates the table name to be used in the insert query, it can be
+        overriden by the class's table name
         :param cols: List of strings represents the columns we want to insert
         :return: A string containing the INSERT statement without real values (only placeholders),
         placeholders are added in bind_values function
         """
         cols_values = "VALUES ("
         cols_names = ""
-        query = f"INSERT INTO {self.table_name}("
+        query = f"INSERT INTO {self.table_name if table_name == '' else table_name}("
         for col_name in cols:
             cols_names += col_name + ","
             cols_values += f":{col_name},"
         query += f"{cols_names[:-1]}) {cols_values[:-1]})"
         return query
 
-    def bind_values(self, query:QSqlQuery, values:dict):
+    def build_bulk_insert_query(self, values, table_name=''):
+        cols = copy.deepcopy(values[0])
+        self.assign_placeholders(values)
+        query = f"INSERT INTO {self.table_name if table_name == '' else table_name} " \
+                f"({','.join(col_name for col_name in cols.keys())}) VALUES " \
+                f"{','.join([self.build_values_rows(row) for row in values])}"
+        print('Bulk insert query: ', query)
+        return query
+
+    def assign_placeholders(self, values):
+        old_keys = copy.deepcopy(values[0])
+        for i in range(len(values)):
+            for j in old_keys:
+                new_key = f'{j}_{i}'
+                values[i][new_key] = values[i].pop(j)
+
+    def build_values_rows(self, row):
+        """
+        Build a row to with placeholders to be inserted in bulk insertion
+        :param row: A dictionary to be inserted
+        :return: A string represents the row to be inserted (:col_1_index, :col_2_index, etc ...)
+        """
+        return f"({','.join([':'+col_name for col_name in row])})"
+
+    def bind_values(self, query: QSqlQuery, values: dict):
         """
         Bind the values in the values to its corresponding placeholder from the query
         :param query: QSqlQuery with placeholders
@@ -43,15 +70,17 @@ class DataAccessObject(object):
         the dictionary keys are the same as the placeholders names
         :return: None, as query is passed by reference
         """
+        values = dict(ChainMap(*values)) if isinstance(values, list) else values
+        print(f'{[":" + value + ":" + str(values[value]) for value in values.keys()]}')
         [query.bindValue(f':{value}', values[value]) for value in values.keys()]
 
-    def insert(self, values:dict):
+    def insert(self, values, table_name=''):
         """
         Insert the 'values', the values keys represents placeholders and column names
         :param values: Dictionary contains the columns names which act as placeholders and its values
         :return: QSqlQuery object after executing
         """
-        query_str = self.build_insert_query(values.keys())
+        query_str = self.build_insert_query(values.keys(), table_name) if isinstance(values, dict) else self.build_bulk_insert_query(values, table_name)
         return self.execute_edit_query(query_str=query_str, place_holders=values)
 
     def build_conditions(self, conditions):
