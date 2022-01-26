@@ -1,12 +1,9 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QSplashScreen
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-
-from initialize_db import DatabaseConnection
 from python_forms.login_GUI import Ui_login_form
 from main_window import AppMainWindow
-from helpers import decrypt_text, encrypt_text
+from src.Authenticate import Authentication
 
 
 class Login(QWidget):
@@ -14,8 +11,8 @@ class Login(QWidget):
         super(Login, self).__init__()
         self.ui = Ui_login_form()
         self.ui.setupUi(self)
-        database = DatabaseConnection()
         self.initializeUI()
+        self.authenticaion = Authentication()
 
     def initializeUI(self):
         self.ui.login_btn.clicked.connect(self.login)
@@ -24,9 +21,7 @@ class Login(QWidget):
         """
         :return:
         """
-        user = {"username": "nasser", "password": encrypt_text("secret")}
-        username = self.ui.usernameLineEdit.text()
-        if username == user["username"] and self.ui.passwordLineEdit.text() == decrypt_text(user["password"]):
+        if self.authenticaion.authenticate_user(username=self.ui.usernameLineEdit.text(), password=self.ui.passwordLineEdit.text()):
             self.main_window = AppMainWindow()
             self.main_window.show()
             self.close()
