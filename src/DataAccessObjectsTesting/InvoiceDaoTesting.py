@@ -17,13 +17,16 @@ class InvoiceDaoTesting:
             return list(csv.DictReader(data_file))
 
     def test_create_invoice(self):
-        invoice = Invoice(serial_number=9893998564321,
-                          date='2020-1-12',
-                          employee=Employee(id=2),
-                          customer=Customer(id=1),
-                          products=[1, 65, 98, 36])
-
-        print(self.invoice_dao.create_invoice(invoice))
+        invoices = self.read_file()
+        for invoice in invoices:
+            invoice['products'] = invoice['products'].split('|')
+        print('Invoices testing data: ', invoices)
+        for invoice in invoices:
+            print(self.invoice_dao.create_invoice(Invoice(serial_number=invoice['serial_number'],
+                                                          date=invoice['date'],
+                                                          employee=Employee(id=invoice['employee_id']),
+                                                          customer=Customer(id=invoice['customer_id']),
+                                                          products=invoice['products'])))
 
     def run_tests(self):
         self.test_create_invoice()

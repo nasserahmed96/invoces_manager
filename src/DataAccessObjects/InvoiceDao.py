@@ -14,5 +14,6 @@ class InvoiceDao(DataAccessObject):
         return self.set_invoice_products(invoice_id, invoice.get_products()) if invoice_id > 0 else None
 
     def set_invoice_products(self, invoice_id, products):
-        self.insert([{'invoice_id': invoice_id, 'product_id': product} for product in products], table_name='invoices_products')
+        self.insert([{'invoice_id': invoice_id, 'product_id': product} for product in products],
+                    table_name='invoices_products')
 

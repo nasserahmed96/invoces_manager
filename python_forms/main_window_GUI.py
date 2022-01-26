@@ -23,13 +23,7 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(1920, 1080))
         MainWindow.setMaximumSize(QtCore.QSize(10000, 10000))
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet("QMainWindow{\n"
-"background: #D8D7F5;\n"
-"}\n"
-"QWidget#centralwidget{\n"
-"background: #D8D7F5;\n"
-"}\n"
-" QWidget#SideBar\n"
+        MainWindow.setStyleSheet(" QWidget#SideBar\n"
 " {\n"
 "            background-color: white;\n"
 "            margin: 0\n"

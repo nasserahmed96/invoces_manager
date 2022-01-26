@@ -7,6 +7,7 @@ from src.Managers.customers_manager import CustomersManager
 from src.Managers.products_manager import ProductsManager
 from src.Managers.category_manager import CategoriesManager
 from src.Managers.brands_manager import BrandsManager
+from src.Managers.invoices_manager import InvoicesManager
 from dashboard import Dashboard
 
 
@@ -33,6 +34,8 @@ class AppMainWindow(QMainWindow):
             lambda: self.change_widget(self.widgets["brands_manager"]["index"]))
         self.ui.products_btn.clicked.connect(
             lambda: self.change_widget(self.widgets["products_manager"]["index"]))
+        self.ui.invoices_btn.clicked.connect(
+            lambda: self.change_widget(self.widgets["invoices_manager"]["index"]))
 
     def initializePages(self):
         self.widgets = {
@@ -49,7 +52,9 @@ class AppMainWindow(QMainWindow):
             "brands_manager":
                 {"index": 5, "widget": BrandsManager()},
             "products_manager":
-                {"index": 6, "widget": ProductsManager()}
+                {"index": 6, "widget": ProductsManager()},
+            "invoices_manager":
+                {"index": 7, "widget": InvoicesManager()}
         }
         [self.ui.window_content.insertWidget(self.widgets[widget]["index"], self.widgets[widget]["widget"]) for widget in self.widgets]
 

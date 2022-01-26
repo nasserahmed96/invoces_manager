@@ -6,7 +6,7 @@ import copy
 
 
 class DataAccessObject(object):
-    def __init__(self, table_name):
+    def __init__(self, table_name=''):
         self.data_base = DatabaseManager()
         self.table_name = table_name
         self.logger = Logger()
@@ -100,16 +100,16 @@ class DataAccessObject(object):
         :param condition: A condition object contains the required parameters for the condition
         :return: A condition string to be used in SQL query
         """
-        return f"{condition['logic']} {condition['column']} {condition['operator']} :{condition['column'].replace('.', '_')} {condition['options']}"
+        return f"{condition['logic']} {condition['column']} {condition['operator']} :{condition['column'].replace('.', '_') if not 'parameter' in condition else condition['parameter']} {condition['options']}"
 
-    def select(self, columns=None, conditions=None):
+    def select(self, columns=None, conditions=None, table_name=''):
         """
         Get the columns with conditions and values
         :param columns: The columns we want to retrieve from the table, if not presented use '*' instead
         :param conditions: Dictionary contains the required conditions on the query
         :return: QSqlQuery object after execution
         """
-        query_str = f"""SELECT {",".join(columns) if columns else '*'} FROM {self.table_name} {self.build_conditions(conditions) if conditions else ''}"""
+        query_str = f"""SELECT {",".join(columns) if columns else '*'} FROM {self.table_name if table_name== '' else table_name} {self.build_conditions(conditions) if conditions else ''}"""
         print('Select QueryString: ', query_str)
         placeholders = self.extract_values_from_conditions(conditions) if conditions else None
         return self.execute_select_query(query_str, placeholders)
@@ -174,7 +174,8 @@ class DataAccessObject(object):
     def extract_values_from_conditions(self, conditions):
         placeholder = dict()
         for condition in conditions:
-            placeholder[condition['column'].replace('.', '_')] = condition['value']
+            placeholder_key = condition['column'].replace('.', '_') if not 'parameter' in condition else condition['parameter']
+            placeholder[placeholder_key] = condition['value']
         return placeholder
 
     def get_data_for_completer(self, column):

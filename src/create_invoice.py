@@ -99,6 +99,7 @@ class CreateInvoice(ProductsManager):
 
     def save_invoice(self):
         invoice_serial = str(self.ui.invoice_serial_number_line_edit.text())
+
         default_file_name = os.path.join(QDir.homePath(), invoice_serial)
         file_name, _ = QFileDialog.getSaveFileName(self, 'Save invoice', default_file_name, 'PDF files(*.pdf)',
                                                    options=QFileDialog.Options())

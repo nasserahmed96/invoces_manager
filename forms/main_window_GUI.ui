@@ -35,13 +35,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow{
-background: #D8D7F5;
-}
-QWidget#centralwidget{
-background: #D8D7F5;
-}
- QWidget#SideBar
+   <string notr="true"> QWidget#SideBar
  {
             background-color: white;
 			margin: 0

@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow
 
+
 class BaseManager(QMainWindow):
     """
     This class contains the basic functionality for the all the managers in the main window
@@ -53,7 +54,4 @@ class BaseManager(QMainWindow):
         pass
 
     def setup_table(self):
-        pass
-
-    def search(self):
         pass
