@@ -12,10 +12,10 @@ from src.Reports.invoice import InvoiceReport
 
 
 class CreateInvoice(ProductsManager):
-    def __init__(self):
+    def __init__(self, parent=None):
         self.invoice_products_model = InvoiceProductsTableModel()
         self.employees_shares_model = EmployeesSharesTableModel()
-        super(CreateInvoice, self).__init__(ui=Ui_createInvoiceWindow())
+        super(CreateInvoice, self).__init__(ui=Ui_createInvoiceWindow(), parent=parent)
         self.employees_usernames = self.employees_shares_model.get_employees_data()
         self.ui.employees_usernames_cb.addItems(self.employees_usernames)
 
