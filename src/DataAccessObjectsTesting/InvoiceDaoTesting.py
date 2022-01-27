@@ -37,10 +37,37 @@ class InvoiceDaoTesting(unittest.TestCase):
         self.invoice_dao = InvoiceDao()
         serial_number = '231564897222'
         invoice_date = '2022-02-08'
-        invoice = self.invoice_dao.get_invoice_by_serial_number(serial_number)
+        invoice = self.invoice_dao.get_invoice_by_serial_number(serial_number)[0]
         self.assertTrue(isinstance(invoice, Invoice))
         self.assertEqual(invoice.get_serial_number(), serial_number)
         self.assertEqual(invoice.get_date(), invoice_date)
+
+    def test_get_invoice_by_date(self):
+        serial_number = '231564897222'
+        from_date = '2022-01-01'
+        to_date = '2022-02-08'
+        conditions = [
+            {
+                'column': 'date',
+                'value': f"DATE({from_date})",
+                'operator': '=',
+                'options': '',
+                'logic': 'AND',
+                'parameter': 'from_date'
+            },
+            {
+                'column': 'date',
+                'value': f'DATE({to_date})',
+                'operator': '=',
+                'options': '',
+                'logic': '',
+                'parameter': 'to_date'
+            }
+        ]
+        invoice = self.invoice_dao.get_invoices(conditions=conditions)
+        self.assertTrue(isinstance(invoice, Invoice))
+        self.assertEqual(invoice.get_serial_number(), serial_number)
+        self.assertEqual(invoice.get_date(), to_date)
 
 
 if __name__ == '__main__':

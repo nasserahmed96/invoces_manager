@@ -100,7 +100,7 @@ class DataAccessObject(object):
         :param condition: A condition object contains the required parameters for the condition
         :return: A condition string to be used in SQL query
         """
-        return f"{condition['logic']} {condition['column']} {condition['operator']} :{condition['column'].replace('.', '_') if not 'parameter' in condition else condition['parameter']} {condition['options']}"
+        return f"{condition['logic']} {condition['column']} {condition['operator']} :{condition['parameter'] if 'parameter' in condition else condition['column'].replace('.', '_')} {condition['options']}"
 
     def select(self, columns=None, conditions=None, table_name=''):
         """
