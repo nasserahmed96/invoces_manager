@@ -6,8 +6,8 @@ import copy
 
 
 class DataAccessObject(object):
-    def __init__(self, table_name=''):
-        self.data_base = DatabaseManager()
+    def __init__(self, table_name='', is_testing=False):
+        self.data_base = DatabaseManager(is_testing=is_testing)
         self.table_name = table_name
         self.logger = Logger()
 

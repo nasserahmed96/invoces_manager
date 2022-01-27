@@ -3,8 +3,8 @@ from src.DataObjects.Invoice import Invoice
 
 
 class InvoiceDao(DataAccessObject):
-    def __init__(self):
-        super(InvoiceDao, self).__init__(table_name='invoices')
+    def __init__(self, is_testing=False):
+        super(InvoiceDao, self).__init__(table_name='invoices', is_testing=is_testing)
 
     def create_invoice(self, invoice):
         invoice_values = {'serial_number': invoice.get_serial_number(),
