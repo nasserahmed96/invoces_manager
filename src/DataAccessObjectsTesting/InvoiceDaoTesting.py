@@ -1,7 +1,5 @@
-from PyQt5.QtCore import Qt, QDate
 import config
 from src.DataAccessObjects.InvoiceDao import InvoiceDao
-import datetime
 import csv
 from src.DataObjects.Invoice import Invoice
 from src.DataObjects.Employee import Employee
@@ -74,6 +72,46 @@ class InvoiceDaoTesting(unittest.TestCase):
             }
         ]
         [self.assertTrue(invoice.get_date() > from_date and invoice.get_date() < to_date) for invoice in self.invoice_dao.get_invoices(conditions=conditions)]
+
+    def test_get_invoices_by_serial_number_and_date(self):
+        from_date = '2022-01-01'
+        to_date = '2022-02-08'
+        serial_number = '231564897221'
+        conditions = [
+            {
+                'column': 'serial_number',
+                'value': str(serial_number),
+                'operator': '=',
+                'options': '',
+                'logic': ''
+            },
+            {
+                'column': "date",
+                'value': f"{from_date}",
+                'operator': '>',
+                'options': '',
+                'logic': 'AND',
+                'parameter': 'from_date'
+            },
+            {
+                'column': "date",
+                'value': f"{to_date}",
+                'operator': '<',
+                'options': '',
+                'logic': 'AND',
+                'parameter': 'to_date'
+            }
+
+        ]
+        invoices = self.invoice_dao.get_invoices(conditions=conditions)
+        self.assertEqual(len(invoices), 1)
+        self.assertTrue(isinstance(invoices[0], Invoice))
+        self.assertEqual(invoices[0].get_serial_number(), serial_number)
+        self.assertTrue(invoices[0].get_date() > from_date and invoices[0].get_date() < to_date)
+        print('Invoice date: ', invoices[0].get_date())
+        print('Invoice serial number: ', invoices[0].get_serial_number())
+
+
 
 
 if __name__ == '__main__':
