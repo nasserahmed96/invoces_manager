@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt, QDate
 import config
 from src.DataAccessObjects.InvoiceDao import InvoiceDao
 import datetime
@@ -37,37 +38,42 @@ class InvoiceDaoTesting(unittest.TestCase):
         self.invoice_dao = InvoiceDao()
         serial_number = '231564897222'
         invoice_date = '2022-02-08'
-        invoice = self.invoice_dao.get_invoice_by_serial_number(serial_number)[0]
+        conditions = [
+            {
+                'column': 'serial_number',
+                'value': '231564897222',
+                'operator': '=',
+                'options': '',
+                'logic': '',
+            }
+        ]
+        invoice = self.invoice_dao.get_invoices(conditions=conditions)[0]
         self.assertTrue(isinstance(invoice, Invoice))
         self.assertEqual(invoice.get_serial_number(), serial_number)
         self.assertEqual(invoice.get_date(), invoice_date)
 
     def test_get_invoice_by_date(self):
-        serial_number = '231564897222'
         from_date = '2022-01-01'
         to_date = '2022-02-08'
         conditions = [
             {
-                'column': 'date',
-                'value': f"DATE({from_date})",
-                'operator': '=',
+                'column': "date",
+                'value': f"{from_date}",
+                'operator': '>',
                 'options': '',
-                'logic': 'AND',
+                'logic': '',
                 'parameter': 'from_date'
             },
             {
-                'column': 'date',
-                'value': f'DATE({to_date})',
-                'operator': '=',
+                'column': "date",
+                'value': f"{to_date}",
+                'operator': '<',
                 'options': '',
-                'logic': '',
+                'logic': 'AND',
                 'parameter': 'to_date'
             }
         ]
-        invoice = self.invoice_dao.get_invoices(conditions=conditions)
-        self.assertTrue(isinstance(invoice, Invoice))
-        self.assertEqual(invoice.get_serial_number(), serial_number)
-        self.assertEqual(invoice.get_date(), to_date)
+        [self.assertTrue(invoice.get_date() > from_date and invoice.get_date() < to_date) for invoice in self.invoice_dao.get_invoices(conditions=conditions)]
 
 
 if __name__ == '__main__':

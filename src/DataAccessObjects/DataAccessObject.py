@@ -44,7 +44,6 @@ class DataAccessObject(object):
         query = f"INSERT INTO {self.table_name if table_name == '' else table_name} " \
                 f"({','.join(col_name for col_name in cols.keys())}) VALUES " \
                 f"{','.join([self.build_values_rows(row) for row in values])}"
-        print('Bulk insert query: ', query)
         return query
 
     def assign_placeholders(self, values):
@@ -71,7 +70,6 @@ class DataAccessObject(object):
         :return: None, as query is passed by reference
         """
         values = dict(ChainMap(*values)) if isinstance(values, list) else values
-        print(f'{[":" + value + ":" + str(values[value]) for value in values.keys()]}')
         [query.bindValue(f':{value}', values[value]) for value in values.keys()]
 
     def insert(self, values, table_name=''):
@@ -110,7 +108,6 @@ class DataAccessObject(object):
         :return: QSqlQuery object after execution
         """
         query_str = f"""SELECT {",".join(columns) if columns else '*'} FROM {self.table_name if table_name== '' else table_name} {self.build_conditions(conditions) if conditions else ''}"""
-        print('Select QueryString: ', query_str)
         placeholders = self.extract_values_from_conditions(conditions) if conditions else None
         return self.execute_select_query(query_str, placeholders)
 
@@ -121,8 +118,6 @@ class DataAccessObject(object):
         :param placeholders: A dictionary contains the values for the palceholders in the query string
         :return: query (with data) if it's successful None instead
         """
-        print('Query string: ', query_str)
-        print('Place holders: ', placeholders)
         query = self.execute_query(query_str, place_holders=placeholders)
         return query if self.debug_query(query) else None
 
