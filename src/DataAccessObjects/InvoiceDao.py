@@ -1,3 +1,5 @@
+import pandas as pd
+from decimal import Decimal
 from src.DataAccessObjects.DataAccessObject import DataAccessObject
 from src.DataObjects.Invoice import Invoice
 
@@ -29,8 +31,9 @@ class InvoiceDao(DataAccessObject):
 
     def get_invoices_dataframe(self, conditions=None):
         query = f"""
-        SELECT invoice.id AS invoice_id, invoice.serial_number AS serial_number, invoice.date AS invoice_date, 
-        invoices_products.quantity AS quantity, SUM(products.price*invoices_products.quantity) AS total 
+        SELECT invoice.id AS invoice_id, invoice.serial_number AS serial_number, invoice.date AS invoice_date,
+        invoice.accessories AS accessories, invoice.above_installation AS above_installation,
+        invoices_products.quantity AS quantity, SUM(products.price*invoices_products.quantity) AS products_total
         FROM invoices AS invoice INNER JOIN invoices_products ON invoice.id=invoices_products.invoice_id 
         INNER JOIN products ON invoices_products.product_id=products.id GROUP BY(invoice_id) 
         {self.build_conditions(conditions) if conditions else ''}"""
@@ -38,10 +41,25 @@ class InvoiceDao(DataAccessObject):
         invoices_result = self.execute_select_query(query_str=query, placeholders=placeholders)
         invoices = []
         while invoices_result.next():
-            invoices.append(Invoice(invoice_id=invoices_result.value('invoice_id'),
-                                    serial_number=invoices_result.value('serial_number'),
-                                    date=invoices_result.value('date')))
-        return invoices
+            invoice = Invoice(invoice_id=invoices_result.value('invoice_id'),
+                              serial_number=invoices_result.value('serial_number'),
+                              date=invoices_result.value('invoice_date'),
+                              accessories=invoices_result.value('accessories'),
+                              above_installation=invoices_result.value('above_installation')).serialize_invoice(exclude=['products', 'employees_shares'])
+            invoice["Total"] = self.convert_to_decimal(invoices_result.value('products_total')) + \
+                               self.convert_to_decimal(invoice['accessories']) + \
+                               self.convert_to_decimal(invoice['above_installation'])
+            invoices.append(invoice)
+        invoices_dataframe = pd.DataFrame(invoices)
+        new_columns = [column.replace('_', ' ').capitalize() for column in invoices_dataframe.columns]
+        invoices_dataframe.rename({invoices_dataframe.columns[i]: new_columns[i] for i in range(len(new_columns))},
+                                  axis=1, inplace=True)
+        return invoices_dataframe
+
+    def convert_to_decimal(self, value=0, quantizer='.00'):
+        if value == '' or not value:
+            value = 0
+        return Decimal(value).quantize(Decimal(quantizer))
 
 
 

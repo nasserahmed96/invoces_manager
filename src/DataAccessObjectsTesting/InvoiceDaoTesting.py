@@ -112,7 +112,7 @@ class InvoiceDaoTesting(unittest.TestCase):
         print('Invoice serial number: ', invoices[0].get_serial_number())
 
     def test_get_invoices_data_frame(self):
-        self.invoice_dao.get_invoices_dataframe()
+        print(self.invoice_dao.get_invoices_dataframe())
 
 
 
