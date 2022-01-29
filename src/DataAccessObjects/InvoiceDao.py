@@ -27,3 +27,22 @@ class InvoiceDao(DataAccessObject):
         return invoice_id if self.insert([{'invoice_id': invoice_id, 'product_id': product} for product in products],
                                          table_name='invoices_products') else -1
 
+    def get_invoices_dataframe(self, conditions=None):
+        query = f"""
+        SELECT invoice.id AS invoice_id, invoice.serial_number AS serial_number, invoice.date AS invoice_date, 
+        invoices_products.quantity AS quantity, SUM(products.price*invoices_products.quantity) AS total 
+        FROM invoices AS invoice INNER JOIN invoices_products ON invoice.id=invoices_products.invoice_id 
+        INNER JOIN products ON invoices_products.product_id=products.id GROUP BY(invoice_id) 
+        {self.build_conditions(conditions) if conditions else ''}"""
+        placeholders = self.extract_values_from_conditions(conditions) if conditions else None
+        invoices_result = self.execute_select_query(query_str=query, placeholders=placeholders)
+        invoices = []
+        while invoices_result.next():
+            invoices.append(Invoice(invoice_id=invoices_result.value('invoice_id'),
+                                    serial_number=invoices_result.value('serial_number'),
+                                    date=invoices_result.value('date')))
+        return invoices
+
+
+
+

@@ -26,7 +26,7 @@ class Invoice(object):
     def append_product(self, product):
         self.products.append(product)
 
-    def append_employee_share(self, employee_share: dict()):
+    def append_employee_share(self, employee_share: dict):
         self.employees_shares.append(employee_share)
 
     def get_invoice_id(self):
@@ -61,3 +61,12 @@ class Invoice(object):
 
     def __str__(self):
         return self.serial_number
+
+    def serialize_invoice(self, fields='All', exclude=None):
+
+        keys_to_be_excluded = list(set(self.__dict__.keys()) - set(fields)) if fields != 'All' else []
+        keys_to_be_excluded.extend(exclude) if exclude else None
+        for key in keys_to_be_excluded:
+            del self.__dict__[key]
+        return self.__dict__
+
