@@ -5,6 +5,8 @@ from PyQt5.QtGui import QPixmap
 from python_forms.login_GUI import Ui_login_form
 from main_window import AppMainWindow
 from src.Authenticate import Authentication
+from src.cache import Cache
+from src.DataAccessObjects.EmployeeDao import EmployeeDao
 
 
 class Login(QWidget):
@@ -14,6 +16,8 @@ class Login(QWidget):
         self.ui.setupUi(self)
         self.initializeUI()
         self.authenticaion = Authentication()
+        self.cache = Cache()
+        self.employee_dao = EmployeeDao()
 
     def initializeUI(self):
         self.ui.login_btn.clicked.connect(self.login)
@@ -22,13 +26,19 @@ class Login(QWidget):
         """
         :return:
         """
-        if self.authenticaion.authenticate_user(username=self.ui.usernameLineEdit.text(), password=self.ui.passwordLineEdit.text()):
+        user_id = self.authenticaion.authenticate_user(username=self.ui.usernameLineEdit.text(), password=self.ui.passwordLineEdit.text())
+        if user_id:
+            self.set_employee_session(user_id)
             self.main_window = AppMainWindow()
             self.main_window.show()
             self.close()
         else:
             QMessageBox.information(self, "Login status", "Login failed, please check username and the password",
                                     QMessageBox.Ok, QMessageBox.Ok)
+
+    def set_employee_session(self, employee_id):
+        self.cache.append_to_cache('employee', {'id': employee_id, 'employee_object': self.employee_dao.get_employee_by_id(employee_id)})
+
 
 
 if __name__ == "__main__":

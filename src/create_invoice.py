@@ -9,6 +9,7 @@ from src.SpinBoxDelegate import SpinBoxDelegate
 from src.Models.InvoiceProductsTableModel import InvoiceProductsTableModel
 from src.Models.EmployeesSharesTableModel import EmployeesSharesTableModel
 from src.Reports.invoice import InvoiceReport
+from src.cache import Cache
 
 
 class CreateInvoice(ProductsManager):
@@ -18,6 +19,8 @@ class CreateInvoice(ProductsManager):
         super(CreateInvoice, self).__init__(ui=Ui_createInvoiceWindow(), parent=parent)
         self.employees_usernames = self.employees_shares_model.get_employees_data()
         self.ui.employees_usernames_cb.addItems(self.employees_usernames)
+        self.cache = Cache()
+        print('Employee cache: ', self.cache.show_cache())
 
     def initialize_ui(self):
         super(CreateInvoice, self).initialize_ui()
@@ -104,6 +107,7 @@ class CreateInvoice(ProductsManager):
         file_name, _ = QFileDialog.getSaveFileName(self, 'Save invoice', default_file_name, 'PDF files(*.pdf)',
                                                    options=QFileDialog.Options())
         print('File name: ', file_name)
+        print('Invoice employee: ', self.cache.retrieve('employee')['id'])
         invoice_report = InvoiceReport(invoice_path=file_name,
                                        invoice_serial=invoice_serial,
                                        customer_name='Nasser',

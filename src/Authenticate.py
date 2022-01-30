@@ -12,15 +12,15 @@ class Authentication:
 
     def authenticate_user(self, username, password):
         query = QSqlQuery()
-        query.prepare("SELECT username, password FROM employees WHERE username=:username")
+        query.prepare("SELECT id, username, password FROM employees WHERE username=:username")
         query.bindValue(":username", username)
         query.exec_()
         query.first()
         self.logger.debug(query.lastError())
         hash_password = query.value("password")
         if hash_password and bcrypt.checkpw((username + password).encode(), hash_password.encode()):
-            return True
-        return False
+            return query.value('id')
+        return None
 
     def hash_password(self, password, username):
         return bcrypt.hashpw((username+password).encode(), bcrypt.gensalt()).decode()

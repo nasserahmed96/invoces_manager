@@ -9,6 +9,7 @@ class InvoicesManager(BaseManager):
         super(InvoicesManager, self).__init__(ui=Ui_invoicesManagerWindow(), parent=parent,
                                               model=InvoiceProductsTableModel())
 
+
     def connect_signals_slots(self):
         self.ui.add_new_invoice_btn.clicked.connect(self.open_create_invoice)
 
