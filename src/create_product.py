@@ -1,8 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from CreateForm import CreateForm
+from src.CreateForm import CreateForm
 from python_forms.createProduct_GUI import Ui_createProductWindow
-from helpers import get_table_data
+from src.helpers import get_table_data
 
 
 class CreateProduct(CreateForm):

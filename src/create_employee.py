@@ -45,6 +45,7 @@ class CreateEmployee(QMainWindow):
         self.ui.addressLineEdit.set_database_attributes('address', 'employees')
         self.ui.passwordLineEdit.set_database_attributes('password', 'employees')
         self.ui.userNameLineEdit.set_database_attributes('username', 'employees')
+        
 
     def connect_signals_slots(self):
         self.ui.save_btn.clicked.connect(self.save)

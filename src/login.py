@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QSplashScreen
 from PyQt5.QtGui import QPixmap
 from python_forms.login_GUI import Ui_login_form
-from main_window import AppMainWindow
+from src.main_window import AppMainWindow
 from src.Authenticate import Authentication
 from src.cache import Cache
 from src.DataAccessObjects.EmployeeDao import EmployeeDao

@@ -35,8 +35,9 @@ class InvoiceDao(DataAccessObject):
         invoice.accessories AS accessories, invoice.above_installation AS above_installation,
         invoices_products.quantity AS quantity, SUM(products.price*invoices_products.quantity) AS products_total
         FROM invoices AS invoice INNER JOIN invoices_products ON invoice.id=invoices_products.invoice_id 
-        INNER JOIN products ON invoices_products.product_id=products.id GROUP BY(invoice_id) 
-        {self.build_conditions(conditions) if conditions else ''}"""
+        INNER JOIN products ON invoices_products.product_id=products.id 
+        {self.build_conditions(conditions) if conditions else ''} GROUP BY(invoice_id) 
+        """
         placeholders = self.extract_values_from_conditions(conditions) if conditions else None
         invoices_result = self.execute_select_query(query_str=query, placeholders=placeholders)
         invoices = []

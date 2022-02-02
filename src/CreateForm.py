@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (QVBoxLayout, QApplication, QMessageBox, QMainWindow
 from PyQt5.QtCore import QRegExp, QPoint
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
-from helpers import show_validation_error
+from src.helpers import show_validation_error
 import config
 
 
