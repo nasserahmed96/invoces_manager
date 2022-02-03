@@ -24,7 +24,7 @@ class DatabaseManager(object):
                     self.logger.error("Can not add database")
             database.setDatabaseName(self.current_database)
             if not database.open():
-                self.logger.error("Can not open database with file name: " + self.self.current_database)
+                self.logger.error("Can not open database with file name: " + self.current_database)
                 return
             self.logger.debug("Database opened")
     instance = None
