@@ -59,6 +59,8 @@ class Report(metaclass=ABCMeta):
                    "margin-bottom": "0",
                    "orientation": "Portrait",
                    "encoding": "UTF-8",
+		   "load-error-handling": "ignore",
+		   "enable-local-file-access": "",
                    "quiet": "",
                    }
         pdfkit.from_file(self.rendered_templates_path + self.template_name, self.output_path,
