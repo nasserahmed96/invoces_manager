@@ -2,6 +2,8 @@ import sys
 
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QSplashScreen
 from PyQt5.QtGui import QPixmap
+
+import config
 from python_forms.login_GUI import Ui_login_form
 from src.main_window import AppMainWindow
 from src.Authenticate import Authentication
@@ -43,7 +45,7 @@ class Login(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    splash = QSplashScreen(QPixmap(''))
+    splash = QSplashScreen(QPixmap(config.ICON_PATH))
     splash.show()
     app.processEvents()
     window = Login()
