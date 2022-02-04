@@ -1,5 +1,4 @@
 import sys
-
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QSplashScreen
 from PyQt5.QtGui import QPixmap
 

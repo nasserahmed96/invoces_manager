@@ -5,6 +5,9 @@ import datetime
 from jinja2 import Environment, PackageLoader, select_autoescape
 import pdfkit
 import pandas as pd
+import base64
+
+import config
 from src.Reports.report import Report
 
 
@@ -51,7 +54,19 @@ class InvoiceReport(Report):
                                                            date=self.date,
                                                            accessories=self.accessories,
                                                            above_installation=self.above_installation,
-                                                           invoice_total=self.invoice_total))
+                                                           invoice_total=self.invoice_total,
+                                                           company_icon=self.get_base64_image(config.ICON_PATH)))
+
+
+    def get_base64_image(self, image_path):
+        """
+        :param image_path: Absolute image path
+        :return: A string represents base64 image of the image
+        """
+        with open(image_path, 'rb') as image_file:
+            image_string = base64.b64encode(image_file.read())
+        return f'data:image/png;base64,{image_string.decode("UTF-8")}'
+
 
 
 
